@@ -45,7 +45,7 @@ img { max-width: 100%; }
   --wall: #F4DAD2; --wall-edge: #D7A396; --smc: #DB7E73; --endo: #E2B84A; --elastin: #D99A2B; --calc: #8E98A6;
   --no: #0A9FB2; --ca: #2B3245; --na-fill: #FFFFFF; --na-stroke: #4F5C73; --tubule: #F7EBD2; --tubule-edge: #C8A35E; --on-blood: #FFFFFF;
   /* RAAS 세 물질을 서로 다른 색으로 */
-  --renin: #8F7000; --angii: #C25A0A; --aldo: #A8378A;
+  --renin: #8F7000; --angii: #C25A0A; --aldo: #A8378A; --kion: #1D6FD8;
   --font-sans: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
 }
@@ -60,7 +60,7 @@ img { max-width: 100%; }
     --muscle: #B5524B; --muscle-hi: rgba(255, 255, 255, 0.2); --blood: #5C1620; --lumen: #5A2128; --rbc: #E35A66;
     --wall: #47302F; --wall-edge: #77504C; --smc: #A85A52; --endo: #D3AE4F; --elastin: #D29A3A; --calc: #C9CFD8;
     --no: #3CCADB; --ca: #D5DCE8; --na-fill: #EEF2F8; --na-stroke: #9AAAC2; --tubule: #3A3122; --tubule-edge: #8E7543;
-    --renin: #E3C24A; --angii: #F08A3C; --aldo: #E47BC8;
+    --renin: #E3C24A; --angii: #F08A3C; --aldo: #E47BC8; --kion: #6AA8FF;
     color-scheme: dark;
   }
 }
@@ -74,7 +74,7 @@ img { max-width: 100%; }
     --muscle: #B5524B; --muscle-hi: rgba(255, 255, 255, 0.2); --blood: #5C1620; --lumen: #5A2128; --rbc: #E35A66;
     --wall: #47302F; --wall-edge: #77504C; --smc: #A85A52; --endo: #D3AE4F; --elastin: #D29A3A; --calc: #C9CFD8;
     --no: #3CCADB; --ca: #D5DCE8; --na-fill: #EEF2F8; --na-stroke: #9AAAC2; --tubule: #3A3122; --tubule-edge: #8E7543;
-    --renin: #E3C24A; --angii: #F08A3C; --aldo: #E47BC8;
+    --renin: #E3C24A; --angii: #F08A3C; --aldo: #E47BC8; --kion: #6AA8FF;
   color-scheme: dark;
 }
 
@@ -373,6 +373,34 @@ h1 { margin: 0; font-size: clamp(28px, 4vw, 40px); line-height: 1.15; font-weigh
 .o-t.ok { fill: var(--drug); }
 .o-t.ren { fill: var(--renin); }
 .o-t.ald { fill: var(--aldo); font-weight: 600; }
+.o-t.kt { fill: var(--kion); font-weight: 700; }
+.o-k { fill: var(--kion); stroke: var(--surface); stroke-width: 0.8; }
+.o-chan { stroke-width: 1.5; }
+.o-chan.na { fill: var(--na-fill); stroke: var(--na-stroke); }
+.o-chan.k { fill: var(--surface); stroke: var(--kion); }
+.o-pump { fill: var(--surface); stroke: var(--ink); stroke-width: 1.4; }
+/* 혈중 K⁺ 게이지 */
+.kg { display: grid; gap: 5px; margin-top: 6px; padding: 9px 11px; border-radius: 10px; background: var(--surface); border: 1px solid var(--line); }
+.kg-head { display: flex; justify-content: space-between; gap: 4px 10px; align-items: baseline; flex-wrap: wrap; }
+.kg-head b { font-size: 13px; }
+.kg-val { font-family: var(--font-mono); font-size: 12.5px; font-weight: 600; }
+.kg-val.lo, .res-k .lo { color: var(--warn); }
+.kg-val.ok, .res-k .ok { color: var(--drug); }
+.kg-val.hi, .res-k .hi { color: var(--problem); }
+.kg-bar { position: relative; display: flex; height: 18px; }
+.kg-z { display: grid; place-items: center; font-size: 10.5px; font-weight: 700; white-space: nowrap; overflow: hidden; }
+.kg-z.lo { width: 25%; background: var(--warn-tint); color: var(--warn); border-radius: 9px 0 0 9px; }
+.kg-z.ok { width: 37.5%; background: var(--drug-tint); color: var(--drug); }
+.kg-z.hi { width: 37.5%; background: var(--problem-tint); color: var(--problem); border-radius: 0 9px 9px 0; }
+.kg-mark { position: absolute; top: -4px; bottom: -4px; width: 4px; margin-left: -2px; background: var(--ink); border-radius: 2px; box-shadow: 0 0 0 2px var(--surface); }
+.kg-scale { position: relative; height: 12px; font-family: var(--font-mono); font-size: 10px; color: var(--faint); }
+.kg-scale span { position: absolute; top: 0; transform: translateX(-50%); }
+.kg-scale span:first-child { transform: none; }
+.kg-scale span:last-child { transform: translateX(-100%); }
+.kg-note { margin: 0; font-size: 12.5px; line-height: 1.6; color: var(--ink); }
+.kg-base { margin: 0; font-size: 11.5px; line-height: 1.55; color: var(--muted); }
+.res-k { font-size: 13px; }
+.res-k b { font-family: var(--font-mono); }
 .o-myo { fill: var(--muscle); }
 .o-fib line { stroke: var(--muscle-hi); stroke-width: 1.4; stroke-linecap: round; }
 .o-scar circle { fill: var(--calc); }
@@ -496,7 +524,15 @@ footer ol { margin: 0; padding-left: 18px; display: grid; gap: 2px; }
           </figure>
           <figure class="ov wide" data-node="kidney" tabindex="0" role="button" aria-label="신장 설명 보기">
             <div class="ov-scroll"><svg id="ovKidney" viewBox="0 0 900 300" aria-hidden="true"></svg></div>
-            <figcaption><b>신장 · 네프론에서 나트륨이 가는 길</b><span class="ov-live" id="ovKidLive"></span><span class="ov-note" id="ovKidNote"></span><span class="ov-fine">실제로는 여과된 나트륨의 99% 이상이 다시 흡수됩니다. 움직임이 보이도록 소변으로 나가는 비율을 과장해 그렸습니다.</span></figcaption>
+            <figcaption><b>신장 · 네프론에서 Na⁺과 K⁺이 가는 길</b><span class="ov-live" id="ovKidLive"></span><span class="ov-note" id="ovKidNote"></span>
+              <div class="kg" aria-label="혈중 칼륨 추정">
+                <div class="kg-head"><b>혈중 K⁺ 추정</b><span class="kg-val ok" id="kVal">4.2 mmol/L · 정상 범위</span></div>
+                <div class="kg-bar" aria-hidden="true"><span class="kg-z lo">저칼륨</span><span class="kg-z ok">정상 3.5~5.0</span><span class="kg-z hi">고칼륨</span><i class="kg-mark" id="kMark" style="left:42.5%"></i></div>
+                <div class="kg-scale" aria-hidden="true"><span style="left:0">2.5</span><span style="left:25%">3.5</span><span style="left:62.5%">5.0</span><span style="left:100%">6.5</span></div>
+                <p class="kg-note" id="kNote"></p>
+                <p class="kg-base">K⁺은 근위세뇨관과 헨레고리에서 대부분 다시 흡수됩니다. 소변으로 나가는 K⁺은 주로 집합관 주세포가 분비하며, ENaC로 Na⁺이 많이 들어올수록, 알도스테론이 많을수록 ROMK로 더 많이 나갑니다.</p>
+              </div>
+              <span class="ov-fine">실제로는 여과된 나트륨의 99% 이상이 다시 흡수됩니다. 움직임이 보이도록 소변으로 나가는 비율을 과장해 그렸습니다. 혈중 K⁺은 교육용 추정치입니다.</span></figcaption>
           </figure>
         </div>
       </section>
@@ -892,7 +928,7 @@ const INFO = {
   heart: { t: '심장', tag: '펌프', n: '심박출량(CO) = 심박수 × 1회박출량. β₁ 자극이 심박수와 수축력을 높이고, 혈액량이 늘면 심장이 더 늘어나 1회박출량이 커집니다.', h: '높은 동맥압을 이기며 피를 내보내야 해 좌심실이 두꺼워집니다(좌심실 비대). 두꺼워진 심근은 잘 이완되지 못해 박출률 보존 심부전, 심방세동, 관상동맥질환으로 이어질 수 있습니다.', d: '베타차단제가 β₁ 수용체를 막아 심박수와 수축력을 줄입니다. 이뇨제는 혈액량을 줄여 초기 심박출량을 낮춥니다.' },
   map: { t: '동맥압 · 대동맥', tag: 'MAP ≈ CO × SVR', n: '평균동맥압은 심박출량과 전신혈관저항의 곱으로 정해집니다. 대동맥과 큰 동맥은 수축기에 늘어났다가 이완기에 되돌아오며 피를 계속 밀어 줍니다. 그래서 심장이 쉬는 동안에도 혈압이 0으로 떨어지지 않습니다.', h: '나이가 들면 엘라스틴이 손상되고 콜라겐과 석회화가 늘어 동맥이 딱딱해집니다. 수축기 혈압은 오르고 이완기 혈압은 낮아져 맥압이 커지는 수축기 단독 고혈압(예: 160/75)이 흔해집니다.', d: '모든 혈압약의 최종 목표입니다. 경직 자체를 되돌리는 약은 없으며, 노인 수축기 고혈압에는 CCB와 이뇨제가 흔히 쓰입니다.' },
   vessel: { t: '세동맥', tag: '수도관 · 저항', n: '저항은 반지름의 네제곱에 반비례해 조금만 좁아져도 크게 늘어납니다. 수축 신호는 α₁(교감신경), AT₁(안지오텐신 II), 세포 안 Ca²⁺이고, 이완 신호는 내피세포가 만드는 NO입니다.', h: '높은 압력이 내피를 손상시켜 NO가 줄고, 평활근이 두꺼워지며 혈관벽이 재형성됩니다. 저항과 경직이 더 커져 혈압이 다시 오르는 악순환이 생깁니다.', d: 'CCB가 L형 Ca²⁺ 통로를 막아 직접 이완시킵니다. ARB·ACE 억제제는 AT₁ 경로를 끊고, 이뇨제는 장기적으로 저항을 낮춥니다.' },
-  kidney: { t: '신장', tag: '관리소 · 장기 조절', n: '나트륨과 물의 배설량으로 혈액량과 장기 혈압을 정합니다. 사구체옆세포는 레닌을 분비하고, 원위곡세뇨관의 NCC(Na⁺/Cl⁻ 공동수송체)와 집합관의 MR → ENaC 경로가 나트륨 재흡수를 조절합니다. 혈압이 오르면 배설이 늘어나는 압력-나트륨이뇨가 혈압을 되돌립니다.', h: '배설 능력이 떨어지면 같은 양의 나트륨을 내보내는 데 더 높은 압력이 필요합니다. 오랜 고혈압은 사구체와 소동맥을 손상시켜 배설 능력을 더 떨어뜨리는 악순환을 만듭니다. NSAIDs는 프로스타글란딘을 억제해 나트륨을 붙잡게 합니다.', d: '티아지드는 NCC를, MRA는 집합관의 알도스테론 수용체를 막습니다. 베타차단제는 레닌 분비를 줄입니다. ARB·ACE 억제제는 사구체 압력을 낮추지만 초기 크레아티닌과 칼륨 변화를 확인해야 합니다.' },
+  kidney: { t: '신장', tag: '관리소 · 장기 조절', n: '나트륨과 물의 배설량으로 혈액량과 장기 혈압을 정합니다. 사구체옆세포는 레닌을 분비하고, 원위곡세뇨관의 NCC(Na⁺/Cl⁻ 공동수송체)와 집합관의 MR → ENaC 경로가 나트륨 재흡수를 조절합니다. 혈압이 오르면 배설이 늘어나는 압력-나트륨이뇨가 혈압을 되돌립니다. K⁺은 앞 구간에서 대부분 흡수되고, 소변으로 나가는 K⁺은 주로 집합관 주세포가 ENaC로 Na⁺을 받아들이면서 ROMK로 분비합니다.', h: '배설 능력이 떨어지면 같은 양의 나트륨을 내보내는 데 더 높은 압력이 필요합니다. 오랜 고혈압은 사구체와 소동맥을 손상시켜 배설 능력을 더 떨어뜨리는 악순환을 만듭니다. NSAIDs는 프로스타글란딘을 억제해 나트륨을 붙잡게 합니다.', d: '티아지드는 NCC를, MRA는 집합관의 알도스테론 수용체를 막습니다. 베타차단제는 레닌 분비를 줄입니다. ARB·ACE 억제제는 사구체 압력을 낮추지만 초기 크레아티닌과 칼륨 변화를 확인해야 합니다.' },
   adrenal: { t: '부신피질', tag: '알도스테론 분비', n: '안지오텐신 II와 혈중 칼륨 상승에 반응해 알도스테론을 분비합니다. 알도스테론은 집합관에서 Na⁺ 재흡수와 K⁺ 배설을 늘립니다.', h: '원발성 알도스테론증에서는 레닌과 상관없이 알도스테론이 과다 분비되어 나트륨 저류와 저칼륨혈증이 생깁니다. 저항성 고혈압에서 꼭 확인할 원인입니다.', d: 'MRA(스피로노락톤, 에플레레논)가 신장의 알도스테론 수용체에서 작용을 막습니다. ARB·ACE 억제제는 분비 자극을 줄입니다.' },
   agt: { t: '안지오텐시노겐', tag: '간에서 생성', n: '간에서 만들어져 혈중에 늘 있는 레닌의 재료입니다. 레닌이 이를 잘라 안지오텐신 I을 만들며, 이 단계의 속도는 레닌 양이 정합니다.', h: '비만하면 지방조직에서도 안지오텐시노겐이 만들어져 RAAS 활성화에 기여합니다.', d: '레닌을 직접 억제하는 약(알리스키렌)이 이 단계를 막지만 흔히 쓰이지는 않습니다.' },
   angI: { t: '안지오텐신 I', tag: '중간 물질', n: '거의 작용이 없는 중간 물질입니다. ACE를 만나 안지오텐신 II가 됩니다.', h: '레닌이 많으면 함께 늘어납니다.', d: '직접 표적으로 하는 약은 없습니다.' },
@@ -1448,6 +1484,9 @@ function renderDrugPanel(v) {
   const res = $('#result'); res.innerHTML = '';
   H('div', { cls: 'res-bp', html: `<span>치료 전</span><b>${v.r0.sbp}/${v.r0.dbp}</b><span class="arrow">→</span><span>치료 후</span><b>${v.sbp}/${v.dbp}</b>` }, res);
   H('div', { cls: 'res-delta', text: n ? `수축기 ${delta >= 0 ? '−' : '+'}${Math.abs(delta)} mmHg · 약 ${n}가지` : '선택한 약 없음' }, res);
+  const kIn = r => ({ at1: r.at1, map: r.map, mr: r.mr, kimp: v.p.kidney, nsaid: v.p.nsaid, salt: v.p.salt });
+  const kb = kEstimate(kIn(v.r0), false).K, ka = kEstimate(kIn(v.r), !!d.thz).K;
+  H('div', { cls: 'res-k', html: `혈중 K⁺ 추정 <b class="${kClass(kb)}">${kb.toFixed(1)}</b> → <b class="${kClass(ka)}">${ka.toFixed(1)}</b> mmol/L · <span class="${kClass(ka)}">${kLabel(ka)}</span>` }, res);
   const rr = H('div', { cls: 'rr' }, res);
   H('h4', { text: '예상 상대위험 감소', style: 'margin:0' }, rr);
   RR10.forEach(([lab, r10]) => {
@@ -1510,6 +1549,7 @@ function renderSE(f) {
   H('p', { cls: 'se-why', text: it.why }, box);
   H('p', { cls: 'se-tip', html: `<b>확인 · 안내</b>${it.tip}` }, box);
   H('p', { cls: 'se-where', html: it.sites.length ? `<i></i>회로도에서: ${it.where} (주황 점선)` : `회로도 밖: ${it.where}` }, box);
+  if (/칼륨/.test(it.name)) H('p', { cls: 'se-where', text: '장기 들여다보기의 신장 그림에서 집합관의 K⁺ 분비(파란 네모)와 혈중 K⁺ 추정치가 이 약에 따라 바뀝니다.' }, box);
 }
 function applySE() {
   const list = SIDE[state.drugFocus] || [];
@@ -1562,7 +1602,7 @@ function waveAt(ph) {
 function contract(ph) { return ph < 0.38 ? Math.pow(Math.sin(Math.PI * ph / 0.38), 0.7) : 0; }
 const circ = (cx, cy, r) => `M${f1(cx + r)} ${cy}A${f1(r)} ${f1(r)} 0 1 0 ${f1(cx - r)} ${cy}A${f1(r)} ${f1(r)} 0 1 0 ${f1(cx + r)} ${cy}Z`;
 
-const AK = ['hr', 'b1', 'a1', 'at1', 'renin', 'mr', 'aldoLv', 'V', 'co', 'svr', 'sbp', 'dbp', 'map', 'stiff', 'endo', 'remodel', 'lvh', 'kimp', 'nsaid', 'damage'];
+const AK = ['hr', 'b1', 'a1', 'at1', 'renin', 'mr', 'aldoLv', 'V', 'co', 'svr', 'sbp', 'dbp', 'map', 'stiff', 'endo', 'remodel', 'lvh', 'kimp', 'nsaid', 'damage', 'salt'];
 const ORG = { cur: null, tgt: null, F: {}, phase: 0, beat: 0, time: 0, last: 0, running: false };
 
 /* ---------- 회로도 노드 안의 작은 그림 ---------- */
@@ -1794,38 +1834,54 @@ const ON = (() => {
   S('path', { class: 'o-urine', d: 'M662 274V296M656 289L662 297L668 289' }, s);
   S('circle', { class: 'o-ncc', cx: 492, cy: 134, r: 6 }, s);
   const nccX = S('path', { class: 'o-x', d: 'M486 128L498 140M498 128L486 140', opacity: 0 }, s);
-  S('rect', { class: 'o-cell', x: 674, y: 152, width: 40, height: 58, rx: 7 }, s);
-  S('circle', { class: 'o-mr', cx: 694, cy: 172, r: 9 }, s);
-  const mrGlow = S('circle', { class: 'o-ald', cx: 694, cy: 172, r: 6 }, s);
-  const mrX = S('path', { class: 'o-x', d: 'M687 165L701 179M701 165L687 179', opacity: 0 }, s);
-  L(694, 148, 'MR', 'o-t sm', 'middle'); L(694, 200, 'ENaC', 'o-t sm', 'middle');
+  // 집합관 주세포: 소변 쪽(왼쪽) ENaC·ROMK, 혈액 쪽(오른쪽) Na⁺/K⁺ 펌프, 안쪽 MR
+  S('rect', { class: 'o-cell', x: 676, y: 150, width: 80, height: 84, rx: 9 }, s);
+  L(716, 248, '집합관 주세포', 'o-t sm', 'middle');
+  L(812, 248, '혈액 쪽', 'o-t sm', 'middle');
+  S('rect', { class: 'o-chan na', x: 673, y: 165, width: 6, height: 14, rx: 2 }, s);
+  L(684, 175, 'ENaC', 'o-t sm');
+  S('rect', { class: 'o-chan k', x: 673, y: 207, width: 6, height: 14, rx: 2 }, s);
+  L(684, 217, 'ROMK', 'o-t sm kt');
+  S('circle', { class: 'o-pump', cx: 756, cy: 192, r: 6 }, s);
+  L(746, 196, 'Na⁺/K⁺ 펌프', 'o-t sm', 'end');
+  S('circle', { class: 'o-mr', cx: 726, cy: 166, r: 8 }, s);
+  const mrGlow = S('circle', { class: 'o-ald', cx: 726, cy: 166, r: 5.5 }, s);
+  const mrX = S('path', { class: 'o-x', d: 'M719 159L733 173M733 159L719 173', opacity: 0 }, s);
+  L(738, 170, 'MR', 'o-t sm');
   L(8, 122, '수입세동맥'); const mapT = L(8, 136, '', 'o-t b');
   L(8, 160, '사구체옆세포'); const renT = L(8, 174, '', 'o-t b ren');
   L(165, 158, '사구체 · 여과', 'o-t', 'middle'); const sclT = L(165, 172, '', 'o-t hot', 'middle');
-  L(286, 156, '근위세뇨관', 'o-t', 'middle'); L(286, 170, 'Na⁺ 약 65% 흡수', 'o-t sm', 'middle');
-  L(432, 214, '헨레고리'); L(432, 228, 'Na⁺ 약 25%', 'o-t sm');
+  L(286, 156, '근위세뇨관', 'o-t', 'middle'); L(286, 170, 'Na⁺·K⁺ 약 65% 흡수', 'o-t sm', 'middle');
+  L(432, 214, '헨레고리'); L(432, 228, 'Na⁺·K⁺ 약 25%', 'o-t sm');
   L(520, 160, '원위곡세뇨관', 'o-t', 'middle'); L(520, 174, 'Na⁺ 약 5% · NCC', 'o-t sm', 'middle');
-  L(640, 232, '집합관', 'o-t', 'end'); L(640, 246, 'Na⁺ 2~5% · ENaC', 'o-t sm', 'end');
+  L(640, 232, '집합관', 'o-t', 'end'); L(640, 246, 'Na⁺ 2~5% 흡수 · ENaC', 'o-t sm', 'end');
+  const kSecT = L(640, 262, '', 'o-t b kt', 'end');
   L(676, 292, '소변'); const urT = L(676, 276, '', 'o-t b');
-  L(888, 216, '← 알도스테론 (부신피질)', 'o-t ald', 'end');
+  L(888, 148, '← 알도스테론 (부신피질)', 'o-t ald', 'end');
   // 범례
-  S('circle', { class: 'o-na', cx: 746, cy: 60, r: 4 }, s); L(756, 64, 'Na⁺ (걸러진 나트륨)');
-  S('circle', { class: 'o-na reab', cx: 746, cy: 80, r: 4 }, s); L(756, 84, '다시 흡수되어 혈액으로');
-  S('circle', { class: 'o-ren', cx: 746, cy: 100, r: 3 }, s); L(756, 104, '레닌');
-  S('circle', { class: 'o-ald', cx: 746, cy: 120, r: 3.4 }, s); L(756, 124, '알도스테론');
+  [['circle', 'o-na', 'Na⁺ (나트륨)'], ['rect', 'o-k', 'K⁺ (칼륨)'], ['circle', 'o-na reab', '다시 흡수되어 혈액으로'], ['circle', 'o-ren', '레닌'], ['circle', 'o-ald', '알도스테론']].forEach(([shape, cls, t], i) => {
+    const y = 46 + i * 16;
+    if (shape === 'rect') S('rect', { class: cls, x: 742.5, y: y - 3.5, width: 7, height: 7, rx: 1.2 }, s);
+    else S('circle', { class: cls, cx: 746, cy: y, r: cls === 'o-ren' ? 3 : 4 }, s);
+    L(756, y + 4, t);
+  });
   const pg = S('g', null, s);
   const NA = Array.from({ length: 90 }, () => ({ on: false, el: S('circle', { class: 'o-na', r: 3.6, opacity: 0 }, pg) }));
+  const KP = Array.from({ length: 60 }, () => ({ on: false, el: S('rect', { class: 'o-k', width: 6, height: 6, rx: 1.2, opacity: 0 }, pg) }));
   const REN = Array.from({ length: 30 }, () => ({ on: false, el: S('circle', { class: 'o-ren', r: 2.6, opacity: 0 }, pg) }));
   const ALD = Array.from({ length: 30 }, () => ({ on: false, el: S('circle', { class: 'o-ald', r: 3.2, opacity: 0 }, pg) }));
   const badge = (x, y, w, t) => { const g = S('g', { class: 'o-badge', opacity: 0 }, s); S('rect', { x, y, width: w, height: 18, rx: 9 }, g); S('text', { x: x + w / 2, y: y + 13, 'text-anchor': 'middle', text: t }, g); return g; };
   const thzB = badge(450, 40, 84, '⊘ 티아지드');
-  const mraB = badge(722, 140, 60, '⊘ MRA');
+  const mraB = badge(696, 126, 60, '⊘ MRA');
   const bbB = badge(8, 184, 70, '⊘ β차단');
   // 경로 좌표표
   const tab = [], starts = []; let acc = 0;
   segI.forEach(p => { let Lp = 0; try { Lp = p.getTotalLength(); } catch (e) {} starts.push(acc); for (let d = 0; d <= Lp; d += 2) { const pt = p.getPointAtLength(d); tab.push([acc + d, pt.x, pt.y]); } acc += Lp; });
   starts.push(acc);
-  return { capT, aff, tuft, caps, nccX, mrGlow, mrX, mapT, renT, sclT, urT, NA, REN, ALD, thzB, mraB, bbB, tab, starts, total: acc, accNa: 0, accRen: 0, accAld: 0, prob: [0.5, 0.5, 0.4, 0.45] };
+  // 집합관 세로 구간에서 높이 y에 해당하는 경로 위치
+  const sCDy = y => { for (const e of tab) if (e[0] >= starts[3] && e[1] > 655 && e[2] >= y) return e[0]; return acc; };
+  return { capT, aff, tuft, caps, nccX, mrGlow, mrX, mapT, renT, sclT, urT, kSecT, NA, KP, REN, ALD, thzB, mraB, bbB, tab, starts, total: acc,
+    sEnacLo: sCDy(160), sEnacHi: sCDy(184), sRomk: sCDy(214), accNa: 0, accK: 0, accKs: 0, accRen: 0, accAld: 0, prob: [0.5, 0.5, 0.4, 0.45] };
 })();
 function ptAt(s) {
   const T = ON.tab; let lo = 0, hi = T.length - 1;
@@ -1836,13 +1892,77 @@ function ptAt(s) {
   const a = T[lo], b = T[hi], t = (s - a[0]) / ((b[0] - a[0]) || 1);
   return [a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t];
 }
-function nephronProb(k) {
+function nephronProb(k, thz = ORG.F.thz) {
   const pP = clamp(0.5 * Math.pow(k.at1, 0.08) * Math.pow(BASE_MAP / k.map, 0.9) * (1 + 0.2 * k.kimp + 0.1 * k.nsaid), 0.2, 0.85);
-  const pD = clamp(0.4 * (ORG.F.thz ? 0.15 : 1) * (1 + 0.15 * k.kimp), 0.03, 0.8);
+  const pD = clamp(0.4 * (thz ? 0.15 : 1) * (1 + 0.15 * k.kimp), 0.03, 0.8);
   const pC = clamp(0.45 * Math.pow(Math.max(k.mr, 0.05), 0.6) * (1 + 0.15 * k.kimp + 0.1 * k.nsaid), 0.05, 0.88);
   return [pP, 0.5, pD, pC];
 }
 const U0 = 0.5 * 0.5 * 0.6 * 0.55;
+
+/* ---------- K⁺: 집합관 분비 능력 → 혈중 K⁺ 추정 ----------
+   분비 능력 C = 알도스테론(MR) 작용 × 집합관에 도착하는 Na⁺(소금 섭취 포함) × 신기능 × NSAIDs.
+   정상상태에서 섭취량만큼 내보내려면 C가 낮을수록 혈중 K⁺이 높아져야 한다. */
+const K_REAB = [0.65, 0.7, 0.1];
+function kFrom(prob, k) {
+  const dist = ((1 - prob[0]) * (1 - prob[1]) * (1 - prob[2])) / (0.5 * 0.5 * 0.6) * Math.pow(k.salt || 1, 0.8);
+  const C = Math.pow(Math.max(k.mr, 0.05), 0.45) * Math.pow(dist, 0.5) * (1 - 0.2 * k.kimp) * (1 - 0.15 * k.nsaid);
+  return { C, K: clamp(4.2 * Math.pow(C, -0.3), 2.5, 6.8) };
+}
+function kEstimate(k, thz) { return kFrom(nephronProb(k, thz), k); }
+const kr = K => Math.round(K * 10) / 10;   // 화면에 보이는 값(소수 첫째 자리)으로 판정
+const kClass = K => (K = kr(K)) < 3.5 ? 'lo' : K > 5.0 ? 'hi' : 'ok';
+const kLabel = K => (K = kr(K)) < 3.0 ? '저칼륨혈증' : K < 3.5 ? '저칼륨혈증 쪽' : K >= 6.0 ? '고칼륨혈증 · 위험' : K > 5.0 ? '고칼륨혈증 쪽' : '정상 범위';
+const KG = { val: $('#kVal'), mark: $('#kMark') };
+function updateKGauge(K) {
+  setText(KG.val, `${K.toFixed(1)} mmol/L · ${kLabel(K)}`);
+  setCls(KG.val, 'kg-val ' + kClass(K));
+  const left = clamp((K - 2.5) / 4 * 100, 0, 100).toFixed(1) + '%';
+  if (KG.mark._l !== left) { KG.mark.style.left = left; KG.mark._l = left; }
+}
+function polyAt(pts, t) {
+  const segs = []; let L = 0;
+  for (let i = 1; i < pts.length; i++) { const d = Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]); segs.push(d); L += d; }
+  let r = t * L;
+  for (let i = 0; i < segs.length; i++) {
+    if (r <= segs[i]) { const u = segs[i] ? r / segs[i] : 0; return [pts[i][0] + (pts[i + 1][0] - pts[i][0]) * u, pts[i][1] + (pts[i + 1][1] - pts[i][1]) * u]; }
+    r -= segs[i];
+  }
+  return pts[pts.length - 1];
+}
+const posNa = (p, x, y) => { p.el.setAttribute('cx', f1(x)); p.el.setAttribute('cy', f1(y)); };
+const posK = (p, x, y) => { p.el.setAttribute('x', f1(x - 3)); p.el.setAttribute('y', f1(y - 3)); };
+// 세뇨관을 따라 흐르다가 정해진 곳에서 재흡수되거나, 분비 경로를 거쳐 세뇨관에 들어오거나, 소변으로 나간다
+function stepParticles(arr, dt, pos, reabCls) {
+  arr.forEach(p => {
+    if (!p.on) return;
+    if (p.mode === 'tube') {
+      p.s += 140 * dt;
+      if (p.reab >= 0 && p.s >= p.reab) {
+        const [x, y] = ptAt(p.reab);
+        p.mode = 'reab'; p.t = 0;
+        if (p.seg === 3) { p.pts = [[x, y], [679, 172], [756, 192], [816, 192]]; p.dur = 1.5; }        // ENaC → 펌프 → 혈액
+        else if (p.seg === 1) { p.pts = [[x, y], [x + (x < 400 ? -26 : 26), y]]; p.dur = 0.9; }
+        else { p.pts = [[x, y], [x + 10, 26]]; p.dur = 0.9; }
+        if (reabCls) setCls(p.el, reabCls);
+      } else if (p.s >= ON.total) {
+        p.mode = 'urine'; p.t = 0; p.pts = [[662, 266], [662, 298]]; p.dur = 0.6;
+      } else {
+        const [x, y] = ptAt(p.s); pos(p, x, y); setOp(p.el, 1);
+        return;
+      }
+    }
+    p.t += dt / p.dur;
+    if (p.t >= 1) {
+      if (p.mode === 'sec') { p.mode = 'tube'; p.s = ON.sRomk; p.reab = -1; const [x, y] = ptAt(p.s); pos(p, x, y); return; }
+      p.on = false; setOp(p.el, 0); return;
+    }
+    const sec = p.mode === 'sec';
+    const [x, y] = polyAt(p.pts, sec ? p.t : 1 - (1 - p.t) ** 2);
+    pos(p, x, y);
+    setOp(p.el, sec ? Math.min(1, p.t * 4) : 1 - p.t * p.t);
+  });
+}
 function mover(arr, dt) {
   arr.forEach(p => {
     if (!p.on) return;
@@ -1870,67 +1990,67 @@ function drawNephron(k, dt) {
   setOp(ON.mraB, ORG.F.mra ? 1 : 0); setOp(ON.mrX, ORG.F.mra ? 1 : 0);
   setOp(ON.bbB, ORG.F.bb ? 1 : 0);
   setOp(ON.mrGlow, clamp(k.mr / 2.4, 0.1, 1));
+  const kk = kFrom(prob, k);
+  setText(ON.kSecT, `K⁺ 분비 ×${kk.C.toFixed(2)}`);
+  updateKGauge(kk.K);
   if (!dt) return;
-  // Na⁺
-  ON.accNa += dt * 8 * Math.pow(k.map / BASE_MAP, 0.5);
+  const gfr = Math.pow(k.map / BASE_MAP, 0.5);
+  // Na⁺: 사구체에서 걸러져 구간마다 재흡수 (집합관에서는 ENaC로)
+  ON.accNa += dt * 8 * gfr;
   while (ON.accNa >= 1) {
     ON.accNa--;
     const p = ON.NA.find(q => !q.on); if (!p) break;
     let reab = -1, seg = -1;
-    for (let s = 0; s < 4; s++) if (rnd() < prob[s]) { reab = ON.starts[s] + (0.15 + 0.7 * rnd()) * (ON.starts[s + 1] - ON.starts[s]); seg = s; break; }
-    Object.assign(p, { on: true, s: 0, reab, seg, mode: 'tube', t: 0 });
+    for (let s = 0; s < 4; s++) if (rnd() < prob[s]) {
+      reab = s === 3 ? ON.sEnacLo + rnd() * (ON.sEnacHi - ON.sEnacLo) : ON.starts[s] + (0.15 + 0.7 * rnd()) * (ON.starts[s + 1] - ON.starts[s]);
+      seg = s; break;
+    }
+    Object.assign(p, { on: true, s: 0, reab, seg, mode: 'tube', t: 0, pts: null });
     setCls(p.el, 'o-na');
   }
-  ON.NA.forEach(p => {
-    if (!p.on) return;
-    if (p.mode === 'tube') {
-      p.s += 140 * dt;
-      if (p.reab >= 0 && p.s >= p.reab) {
-        const [x, y] = ptAt(p.reab);
-        Object.assign(p, { mode: 'reab', t: 0, x0: x, y0: y });
-        if (p.seg === 1) { p.x1 = x + (x < 400 ? -26 : 26); p.y1 = y; }
-        else if (p.seg === 3 && x > 650) { p.x1 = x - 28; p.y1 = y; }
-        else { p.x1 = x + 10; p.y1 = 26; }
-        setCls(p.el, 'o-na reab');
-      } else if (p.s >= ON.total) {
-        Object.assign(p, { mode: 'urine', t: 0, x0: 662, y0: 266, x1: 662, y1: 298 });
-      } else {
-        const [x, y] = ptAt(p.s);
-        p.el.setAttribute('cx', f1(x)); p.el.setAttribute('cy', f1(y)); setOp(p.el, 1);
-        return;
-      }
-    }
-    p.t += dt / (p.mode === 'reab' ? 0.9 : 0.6);
-    if (p.t >= 1) { p.on = false; setOp(p.el, 0); return; }
-    const e = 1 - (1 - p.t) ** 2;
-    p.el.setAttribute('cx', f1(p.x0 + (p.x1 - p.x0) * e)); p.el.setAttribute('cy', f1(p.y0 + (p.y1 - p.y0) * e));
-    setOp(p.el, 1 - p.t * p.t);
-  });
+  // K⁺: 걸러진 K⁺은 앞 구간에서 대부분 흡수
+  ON.accK += dt * 3 * gfr;
+  while (ON.accK >= 1) {
+    ON.accK--;
+    const p = ON.KP.find(q => !q.on); if (!p) break;
+    let reab = -1, seg = -1;
+    for (let s = 0; s < 3; s++) if (rnd() < K_REAB[s]) { reab = ON.starts[s] + (0.15 + 0.7 * rnd()) * (ON.starts[s + 1] - ON.starts[s]); seg = s; break; }
+    Object.assign(p, { on: true, s: 0, reab, seg, mode: 'tube', t: 0, pts: null });
+  }
+  // K⁺ 분비: 혈액 → Na⁺/K⁺ 펌프 → 주세포 → ROMK → 집합관 안
+  ON.accKs += dt * 2.4 * kk.C;
+  while (ON.accKs >= 1) {
+    ON.accKs--;
+    const p = ON.KP.find(q => !q.on); if (!p) break;
+    Object.assign(p, { on: true, mode: 'sec', t: 0, dur: 1.5, reab: -1, seg: -1, pts: [[830, 184 + rnd() * 16], [756, 192], [702, 209], [679, 214], [664, 214]] });
+  }
+  stepParticles(ON.NA, dt, posNa, 'o-na reab');
+  stepParticles(ON.KP, dt, posK, null);
   // 레닌: 사구체옆세포 → 혈중
   ON.accRen += dt * 2.2 * k.renin;
   while (ON.accRen >= 1) { ON.accRen--; const p = ON.REN.find(q => !q.on); if (!p) break; const x = 90 + rnd() * 30; Object.assign(p, { on: true, t: 0, dur: 1.3, x0: x, y0: 82, x1: x + (rnd() - 0.5) * 24, y1: 30 }); }
   mover(ON.REN, dt);
   // 알도스테론: 부신피질 → 집합관 MR
   ON.accAld += dt * 2 * k.aldoLv;
-  while (ON.accAld >= 1) { ON.accAld--; const p = ON.ALD.find(q => !q.on); if (!p) break; Object.assign(p, { on: true, t: 0, dur: 1.7, x0: 886, y0: 166 + rnd() * 16, x1: ORG.F.mra ? 716 : 700, y1: 168 + (rnd() - 0.5) * 8 }); }
+  while (ON.accAld >= 1) { ON.accAld--; const p = ON.ALD.find(q => !q.on); if (!p) break; Object.assign(p, { on: true, t: 0, dur: 1.7, x0: 886, y0: 158 + rnd() * 14, x1: ORG.F.mra ? 748 : 734, y1: 166 + (rnd() - 0.5) * 6 }); }
   mover(ON.ALD, dt);
 }
 
 /* ---------- 상태 → 움직임 목표값, 설명문 ---------- */
 function updateOrgans(v) {
   const m = v.meters;
-  const T = { hr: v.hr, b1: m.symp, a1: m.symp, at1: m.at1, renin: m.renin, mr: m.aldo, aldoLv: m.aldo, V: m.vol, co: v.co, svr: v.svr, sbp: v.sbp, dbp: v.dbp, map: v.map, stiff: 0, endo: 0, remodel: 0, lvh: 0, kimp: 0, nsaid: 0, damage: 0 };
-  const F = { thz: false, mra: false, ccb: false, bb: false };
+  const T = { hr: v.hr, b1: m.symp, a1: m.symp, at1: m.at1, renin: m.renin, mr: m.aldo, aldoLv: m.aldo, V: m.vol, co: v.co, svr: v.svr, sbp: v.sbp, dbp: v.dbp, map: v.map, stiff: 0, endo: 0, remodel: 0, lvh: 0, kimp: 0, nsaid: 0, damage: 0, salt: 1 };
+  const F = { thz: false, mra: false, ccb: false, bb: false, arb: false, acei: false };
   if (v.r) {
     T.a1 = v.r.a1; T.aldoLv = v.r.aldo;
-    T.stiff = v.p.stiff; T.endo = v.p.endo; T.kimp = v.p.kidney; T.nsaid = v.p.nsaid;
+    T.stiff = v.p.stiff; T.endo = v.p.endo; T.kimp = v.p.kidney; T.nsaid = v.p.nsaid; T.salt = v.p.salt;
     T.lvh = clamp((v.sbp - 125) / 85, 0, 0.7);
     T.remodel = clamp(0.6 * v.p.endo + (v.sbp - 130) / 80, 0, 1);
     T.damage = clamp((v.r0.sbp - 140) / 40, 0, 1);
     if (state.mode === 'drugs') Object.keys(F).forEach(key => { F[key] = !!state.drugs[key]; });
   }
   ORG.tgt = T; ORG.F = F;
-  if (!ORG.cur) ORG.cur = Object.assign({}, T);
+  if (!ORG.cur) { ORG.cur = Object.assign({}, T); stepOrgans(0); }   // 첫 화면은 애니메이션 전에 바로 그림
   // 설명문
   const lvh0 = v.r0 ? clamp((v.r0.sbp - 125) / 85, 0, 0.7) : 0;
   $('#ovHeartLive').textContent = `심박수 ${v.hr}/분 · 수축력 ×${m.symp.toFixed(2)} · 벽 두께 ×${(1 + T.lvh).toFixed(2)}`;
@@ -1966,6 +2086,19 @@ function updateOrgans(v) {
   if (T.damage > 0.17) kn.push('오랜 고혈압으로 사구체 일부가 경화되었습니다(회색). 되돌리기 어려운 손상입니다.');
   if (!kn.length) kn.push(v.map < 80 ? '압력이 낮아 근위세뇨관에서 Na⁺을 더 붙잡고, 알도스테론이 집합관 흡수를 늘립니다.' : '걸러진 Na⁺(흰 점)은 세뇨관을 지나며 대부분 다시 흡수되어 혈액으로 돌아갑니다(붉은 점). 혈압이 오르면 근위세뇨관 흡수가 줄어 배설이 늘어납니다.');
   $('#ovKidNote').textContent = kn.slice(0, 2).join(' ');
+  // K⁺ 설명: 왜 칼륨이 오르내리는지
+  const raasB = F.arb || F.acei;
+  const kt = [];
+  if (F.thz && (raasB || F.mra)) kt.push('티아지드는 K⁺을 더 내보내고, ' + (F.mra ? 'MRA' : 'ARB·ACE 억제제') + '는 덜 내보내게 해 서로 상쇄됩니다.');
+  else if (F.thz) kt.push('티아지드: 원위곡세뇨관에서 흡수 못 한 Na⁺이 집합관으로 몰려 ENaC로 들어오고, 혈액량 감소로 알도스테론까지 올라 ROMK로 K⁺이 더 많이 나갑니다 → 저칼륨혈증 쪽.');
+  if (F.mra && raasB) kt.push('MRA + ARB·ACE 억제제: 알도스테론 작용이 이중으로 줄어 K⁺ 분비가 크게 줄어듭니다 → 고칼륨혈증 위험.');
+  else if (F.mra && !F.thz) kt.push('MRA가 MR을 막아 ENaC·ROMK·펌프가 덜 일하므로 K⁺ 분비가 줄어듭니다 → 고칼륨혈증 쪽.');
+  else if (raasB && !F.thz) kt.push('안지오텐신 II가 줄어 알도스테론 분비가 감소하면서 K⁺ 분비가 줄어듭니다 → 칼륨이 약간 오릅니다.');
+  if (T.aldoLv >= 2 && !F.mra) kt.push('알도스테론이 넘쳐 ENaC로 Na⁺을 계속 붙잡고 ROMK로 K⁺을 계속 내보냅니다 → 원발성 알도스테론증의 저칼륨혈증.');
+  if (T.kimp > 0) kt.push('신장 기능이 떨어지면 K⁺을 내보낼 능력 자체가 줄어 고칼륨혈증이 잘 생깁니다.');
+  if (T.nsaid > 0) kt.push('NSAIDs는 레닌·알도스테론을 낮추고 신장 혈류를 줄여 K⁺ 배출을 방해합니다.');
+  if (!kt.length) kt.push(v.map < 80 ? '혈압이 낮으면 집합관에 도착하는 Na⁺과 소변 흐름이 줄어, 알도스테론이 올라도 K⁺ 분비는 크게 늘지 않습니다.' : '파란 네모(K⁺)가 혈액 쪽에서 펌프를 거쳐 ROMK로 집합관 안에 들어가는 것이 K⁺ 분비입니다. 바로 위 ENaC로 Na⁺(흰 점)이 들어오는 만큼 K⁺이 나갑니다.');
+  $('#kNote').textContent = kt.slice(0, 2).join(' ');
   if (RM.matches) { ORG.cur = Object.assign({}, T); ORG.phase = 0.18; stepOrgans(0); }
   else if (!ORG.running) { ORG.running = true; requestAnimationFrame(organFrame); }
 }
