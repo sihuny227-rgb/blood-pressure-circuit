@@ -44,6 +44,8 @@ img { max-width: 100%; }
   --muscle: #C2463E; --muscle-hi: rgba(255, 255, 255, 0.28); --blood: #8B1D2A; --lumen: #F2BAB3; --rbc: #C42F3E;
   --wall: #F4DAD2; --wall-edge: #D7A396; --smc: #DB7E73; --endo: #E2B84A; --elastin: #D99A2B; --calc: #8E98A6;
   --no: #0A9FB2; --ca: #2B3245; --na-fill: #FFFFFF; --na-stroke: #4F5C73; --tubule: #F7EBD2; --tubule-edge: #C8A35E; --on-blood: #FFFFFF;
+  /* RAAS 세 물질을 서로 다른 색으로 */
+  --renin: #8F7000; --angii: #C25A0A; --aldo: #A8378A;
   --font-sans: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
 }
@@ -58,6 +60,7 @@ img { max-width: 100%; }
     --muscle: #B5524B; --muscle-hi: rgba(255, 255, 255, 0.2); --blood: #5C1620; --lumen: #5A2128; --rbc: #E35A66;
     --wall: #47302F; --wall-edge: #77504C; --smc: #A85A52; --endo: #D3AE4F; --elastin: #D29A3A; --calc: #C9CFD8;
     --no: #3CCADB; --ca: #D5DCE8; --na-fill: #EEF2F8; --na-stroke: #9AAAC2; --tubule: #3A3122; --tubule-edge: #8E7543;
+    --renin: #E3C24A; --angii: #F08A3C; --aldo: #E47BC8;
     color-scheme: dark;
   }
 }
@@ -71,6 +74,7 @@ img { max-width: 100%; }
     --muscle: #B5524B; --muscle-hi: rgba(255, 255, 255, 0.2); --blood: #5C1620; --lumen: #5A2128; --rbc: #E35A66;
     --wall: #47302F; --wall-edge: #77504C; --smc: #A85A52; --endo: #D3AE4F; --elastin: #D29A3A; --calc: #C9CFD8;
     --no: #3CCADB; --ca: #D5DCE8; --na-fill: #EEF2F8; --na-stroke: #9AAAC2; --tubule: #3A3122; --tubule-edge: #8E7543;
+    --renin: #E3C24A; --angii: #F08A3C; --aldo: #E47BC8;
   color-scheme: dark;
 }
 
@@ -221,6 +225,10 @@ h1 { margin: 0; font-size: clamp(28px, 4vw, 40px); line-height: 1.15; font-weigh
 .m-fill { position: absolute; top: 0; bottom: 0; border-radius: 99px; transition: left 0.35s, width 0.35s; }
 .m-fill.t-neural { background: var(--neural); }
 .m-fill.t-hormone { background: var(--hormone); }
+.m-fill.t-renin { background: var(--renin); }
+.m-fill.t-angii { background: var(--angii); }
+.m-fill.t-aldo { background: var(--aldo); }
+.m-lab .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 5px; vertical-align: 1px; }
 .m-fill.t-fluid { background: var(--fluid); }
 .meter.sep { border-top: 1px dashed var(--line); padding-top: 6px; }
 .m-scale { display: grid; grid-template-columns: 112px minmax(0, 1fr) 46px; gap: 8px; font-family: var(--font-mono); font-size: 9.5px; color: var(--faint); }
@@ -363,7 +371,8 @@ h1 { margin: 0; font-size: clamp(28px, 4vw, 40px); line-height: 1.15; font-weigh
 .o-t.inv { fill: var(--on-blood); font-weight: 700; }
 .o-t.hot { fill: var(--problem); font-weight: 700; }
 .o-t.ok { fill: var(--drug); }
-.o-t.ren { fill: var(--hormone); }
+.o-t.ren { fill: var(--renin); }
+.o-t.ald { fill: var(--aldo); font-weight: 600; }
 .o-myo { fill: var(--muscle); }
 .o-fib line { stroke: var(--muscle-hi); stroke-width: 1.4; stroke-linecap: round; }
 .o-scar circle { fill: var(--calc); }
@@ -389,13 +398,13 @@ h1 { margin: 0; font-size: clamp(28px, 4vw, 40px); line-height: 1.15; font-weigh
 .o-cap { fill: var(--lumen); stroke: var(--rbc); stroke-width: 1.6; }
 .o-cap.scl { fill: var(--calc); stroke: var(--faint); }
 .o-capsule { fill: var(--tubule); stroke: var(--tubule-edge); stroke-width: 2; }
-.o-jg { fill: var(--hormone); opacity: 0.85; }
+.o-jg { fill: var(--renin); opacity: 0.85; }
 .o-na { fill: var(--na-fill); stroke: var(--na-stroke); stroke-width: 1.2; }
 .o-na.reab { fill: var(--lumen); stroke: var(--rbc); }
-.o-ren { fill: var(--hormone); }
-.o-ald { fill: var(--hormone); stroke: var(--surface); stroke-width: 0.8; }
+.o-ren { fill: var(--renin); }
+.o-ald { fill: var(--aldo); stroke: var(--surface); stroke-width: 0.8; }
 .o-cell { fill: var(--wall); stroke: var(--wall-edge); }
-.o-mr { fill: var(--surface); stroke: var(--hormone); stroke-width: 2; }
+.o-mr { fill: var(--surface); stroke: var(--aldo); stroke-width: 2; }
 .o-ncc { fill: var(--surface); stroke: var(--tubule-edge); stroke-width: 2; }
 .o-x { stroke: var(--drug); stroke-width: 2.6; stroke-linecap: round; }
 .glyph { pointer-events: none; }
@@ -408,7 +417,7 @@ h1 { margin: 0; font-size: clamp(28px, 4vw, 40px); line-height: 1.15; font-weigh
 .g-brain { fill: var(--lit-tint); stroke: var(--neural); stroke-width: 1.4; }
 .g-gyri { fill: none; stroke: var(--neural); stroke-width: 1; opacity: 0.6; }
 .g-spark { fill: var(--neural); }
-.g-adrenal { fill: var(--hormone); }
+.g-adrenal { fill: var(--aldo); }
 .wave-dot { fill: var(--problem); stroke: var(--surface); stroke-width: 1.5; }
 
 /* ---------- 부작용 ---------- */
@@ -1043,9 +1052,9 @@ const METERS = [
   { k: 'co', name: '심박출량', sub: 'CO = 심박수 × 1회박출량', type: 'fluid' },
   { k: 'svr', name: '전신혈관저항', sub: 'SVR', type: 'fluid' },
   { k: 'symp', name: '교감신경', sub: 'β₁ 작용', type: 'neural', sep: true },
-  { k: 'renin', name: '레닌', sub: '혈중 농도', type: 'hormone' },
-  { k: 'at1', name: '안지오텐신 II', sub: 'AT₁ 작용', type: 'hormone' },
-  { k: 'aldo', name: '알도스테론', sub: 'MR 작용', type: 'hormone' },
+  { k: 'renin', name: '레닌', sub: '혈중 농도', type: 'renin' },
+  { k: 'at1', name: '안지오텐신 II', sub: 'AT₁ 작용', type: 'angii' },
+  { k: 'aldo', name: '알도스테론', sub: 'MR 작용', type: 'aldo' },
   { k: 'vol', name: '혈액량', sub: 'Na⁺ · 수분 저류', type: 'fluid' },
 ];
 const meterEl = {};
@@ -1053,7 +1062,7 @@ const meterEl = {};
   const box = $('#meters');
   METERS.forEach(m => {
     const row = H('div', { cls: 'meter' + (m.sep ? ' sep' : '') }, box);
-    H('span', { cls: 'm-lab', html: `${m.name}<small>${m.sub}</small>` }, row);
+    H('span', { cls: 'm-lab', html: `<span class="dot" style="background:var(--${m.type})"></span>${m.name}<small>${m.sub}</small>` }, row);
     const tr = H('div', { cls: 'm-track' }, row);
     const f = H('div', { cls: 'm-fill t-' + m.type }, tr);
     const v = H('span', { cls: 'm-val', text: '×1.00' }, row);
@@ -1787,7 +1796,7 @@ const ON = (() => {
   const nccX = S('path', { class: 'o-x', d: 'M486 128L498 140M498 128L486 140', opacity: 0 }, s);
   S('rect', { class: 'o-cell', x: 674, y: 152, width: 40, height: 58, rx: 7 }, s);
   S('circle', { class: 'o-mr', cx: 694, cy: 172, r: 9 }, s);
-  const mrGlow = S('circle', { class: 'o-ren', cx: 694, cy: 172, r: 6 }, s);
+  const mrGlow = S('circle', { class: 'o-ald', cx: 694, cy: 172, r: 6 }, s);
   const mrX = S('path', { class: 'o-x', d: 'M687 165L701 179M701 165L687 179', opacity: 0 }, s);
   L(694, 148, 'MR', 'o-t sm', 'middle'); L(694, 200, 'ENaC', 'o-t sm', 'middle');
   L(8, 122, '수입세동맥'); const mapT = L(8, 136, '', 'o-t b');
@@ -1798,7 +1807,7 @@ const ON = (() => {
   L(520, 160, '원위곡세뇨관', 'o-t', 'middle'); L(520, 174, 'Na⁺ 약 5% · NCC', 'o-t sm', 'middle');
   L(640, 232, '집합관', 'o-t', 'end'); L(640, 246, 'Na⁺ 2~5% · ENaC', 'o-t sm', 'end');
   L(676, 292, '소변'); const urT = L(676, 276, '', 'o-t b');
-  L(888, 216, '← 알도스테론 (부신피질)', 'o-t', 'end');
+  L(888, 216, '← 알도스테론 (부신피질)', 'o-t ald', 'end');
   // 범례
   S('circle', { class: 'o-na', cx: 746, cy: 60, r: 4 }, s); L(756, 64, 'Na⁺ (걸러진 나트륨)');
   S('circle', { class: 'o-na reab', cx: 746, cy: 80, r: 4 }, s); L(756, 84, '다시 흡수되어 혈액으로');
