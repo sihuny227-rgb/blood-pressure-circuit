@@ -907,45 +907,44 @@ const DRUGMAP = Object.fromEntries(DRUGS.map(d => [d.k, d]));
 const STD_EFF = { acei: 6.8, arb: 8.5, ccb: 8.9, bb: 9.5, thz: 10.8, mra: 8.7 };
 const DOSE_F = [0.8, 1, 1 + 1.5 / 8.7];
 const DOSE_L = ['½ 용량', '표준', '2배'];
-// 성분별 1일 용량(mg): [성분, ½ 용량, 표준, 2배, 메모]. 표준 = 흔히 쓰는 유지 용량 예시, '—' = 해당 용량을 쓰지 않음
+// 성분별 1일 용량(mg): [대표 제품명(성분명), ½ 용량, 표준, 2배, 메모]
+// 표준 = 흔히 쓰는 유지 용량 예시, '—' = 해당 용량을 쓰지 않음. 제품명은 국내 대표(주로 오리지널) 제품 예시
 const INGR = {
   arb: [
-    ['로사르탄', '25', '50', '100'],
-    ['발사르탄', '40', '80', '160', '필요하면 320 mg까지 씁니다.'],
-    ['텔미사르탄', '20', '40', '80'],
-    ['올메사르탄', '10', '20', '40'],
-    ['칸데사르탄', '4', '8', '16', '필요하면 32 mg까지 씁니다.'],
-    ['이르베사르탄', '75', '150', '300'],
-    ['피마사르탄', '30', '60', '120', '국내에서 개발된 ARB입니다.'],
+    ['코자(로사르탄)', '25', '50', '100'],
+    ['디오반(발사르탄)', '40', '80', '160', '필요하면 320 mg까지 씁니다.'],
+    ['미카르디스(텔미사르탄)', '20', '40', '80'],
+    ['올메텍(올메사르탄)', '10', '20', '40'],
+    ['아타칸(칸데사르탄)', '4', '8', '16', '필요하면 32 mg까지 씁니다.'],
+    ['아프로벨(이르베사르탄)', '75', '150', '300'],
+    ['카나브(피마사르탄)', '30', '60', '120', '국내에서 개발된 ARB입니다.'],
   ],
   acei: [
-    ['라미프릴', '2.5', '5', '10'],
-    ['페린도프릴 아르기닌', '2.5', '5', '10', '에르부민염 제제는 4 · 8 mg 단위입니다.'],
-    ['에날라프릴', '5', '10', '20', '최대 40 mg까지, 1~2회로 나눠 씁니다.'],
-    ['이미다프릴', '2.5', '5', '10'],
+    ['트리테이스(라미프릴)', '2.5', '5', '10'],
+    ['아서틸(페린도프릴 아르기닌)', '2.5', '5', '10', '에르부민염 제제는 4 · 8 mg 단위입니다.'],
+    ['타나트릴(이미다프릴)', '2.5', '5', '10'],
   ],
   ccb: [
-    ['암로디핀', '2.5', '5', '10'],
-    ['S-암로디핀', '1.25', '2.5', '5', '암로디핀의 활성 이성질체라 절반 용량으로 비슷한 효과를 냅니다.'],
-    ['펠로디핀 서방', '2.5', '5', '10'],
-    ['레르카니디핀', '5', '10', '20'],
-    ['실니디핀', '5', '10', '20'],
-    ['니페디핀 서방(GITS)', '—', '30', '60', '고혈압에는 서방형만 씁니다. 작용이 빠른 속효성 제제는 쓰지 않습니다.'],
+    ['노바스크(암로디핀)', '2.5', '5', '10'],
+    ['레보텐션(S-암로디핀)', '1.25', '2.5', '5', '암로디핀의 활성 이성질체라 절반 용량으로 비슷한 효과를 냅니다.'],
+    ['자니딥(레르카니디핀)', '5', '10', '20'],
+    ['시나롱(실니디핀)', '5', '10', '20'],
+    ['아달라트 오로스(니페디핀)', '—', '30', '60', '고혈압에는 서방형만 씁니다. 작용이 빠른 속효성 제제는 쓰지 않습니다.'],
   ],
   thz: [
-    ['히드로클로로티아지드', '12.5', '25', '50', '50 mg은 혈압 이득보다 저칼륨·요산 상승 같은 부작용이 커서 잘 쓰지 않습니다.'],
-    ['클로르탈리돈', '12.5', '25', '50', '같은 mg에서 히드로클로로티아지드보다 강하고 오래 작용합니다.'],
-    ['인다파미드', '1.25', '2.5', '—', '서방정은 1.5 mg 1회입니다. 2.5 mg보다 올려도 혈압은 더 내려가지 않고 저칼륨만 늘어 증량하지 않습니다.'],
+    ['다이크로짇(히드로클로로티아지드)', '12.5', '25', '50', '50 mg은 혈압 이득보다 저칼륨·요산 상승 같은 부작용이 커서 잘 쓰지 않습니다.'],
+    ['하이그로톤(클로르탈리돈)', '12.5', '25', '50', '같은 mg에서 히드로클로로티아지드보다 강하고 오래 작용합니다.'],
+    ['후루덱스 서방(인다파미드)', '—', '1.5', '—', '서방정 1.5 mg 1회로 씁니다. 올려도 혈압은 더 내려가지 않고 저칼륨만 늘어 증량하지 않습니다.'],
   ],
   bb: [
-    ['비소프롤롤', '2.5', '5', '10'],
-    ['네비보롤', '2.5', '5', '10'],
-    ['카르베딜롤', '12.5', '25', '50', '1일 총량입니다. 고혈압에는 12.5 mg으로 시작해 25 mg으로 유지합니다.'],
-    ['아테놀롤', '25', '50', '100', '신장으로 배설되어 신기능이 떨어지면 줄입니다.'],
+    ['콩코르(비소프롤롤)', '2.5', '5', '10'],
+    ['네비레트(네비보롤)', '2.5', '5', '10', '고령자나 신기능이 떨어진 경우 2.5 mg으로 씁니다.'],
+    ['딜라트렌(카르베딜롤)', '12.5', '25', '50', '1일 총량입니다. 고혈압에는 12.5 mg으로 시작해 25 mg으로 유지합니다.'],
+    ['테노민(아테놀롤)', '25', '50', '100', '신장으로 배설되어 신기능이 떨어지면 줄입니다.'],
   ],
   mra: [
-    ['스피로노락톤', '12.5', '25', '50', '저항성 고혈압에는 25 mg 전후로 시작해 50 mg까지 씁니다.'],
-    ['에플레레논', '25', '50', '100', 'MR 선택성이 높아 여성형 유방이 적습니다.'],
+    ['알닥톤(스피로노락톤)', '12.5', '25', '50', '저항성 고혈압에는 25 mg 전후로 시작해 50 mg까지 씁니다.'],
+    ['인스프라(에플레레논)', '25', '50', '100', 'MR 선택성이 높아 여성형 유방이 적습니다.'],
   ],
 };
 const intensityOf = e => e >= 20 ? ['high', '고강도'] : e >= 10 ? ['mod', '중강도'] : ['low', '저강도'];
@@ -1649,7 +1648,7 @@ function renderDrugPanel(v) {
   const f = DRUGMAP[state.drugFocus] || DRUGS[0];
   const dd = $('#drugDetail');
   dd.innerHTML = `<h3>${f.abbr} <span style="font-weight:500;color:var(--muted);font-size:13px">${f.name}</span></h3>
-    <dl><dt>표적</dt><dd>${f.target}</dd><dt>용량</dt><dd>${DOSE_L[state.dose[f.k]]} (예: ${doseText(f.k, state.dose[f.k])}) · 단독 기대 −${(STD_EFF[f.k] * DOSE_F[state.dose[f.k]]).toFixed(1)} mmHg, ${intensityOf(STD_EFF[f.k] * DOSE_F[state.dose[f.k]])[1]}${state.drugs[f.k] ? '' : ' · 지금은 안 씀'}</dd><dt>기전</dt><dd>${f.mech}</dd><dt>몸의 반응</dt><dd>${f.react}</dd></dl>`;
+    <dl><dt>표적</dt><dd>${f.target}</dd><dt>용량</dt><dd>${DOSE_L[state.dose[f.k]]} · ${doseText(f.k, state.dose[f.k])} · 단독 기대 −${(STD_EFF[f.k] * DOSE_F[state.dose[f.k]]).toFixed(1)} mmHg, ${intensityOf(STD_EFF[f.k] * DOSE_F[state.dose[f.k]])[1]}${state.drugs[f.k] ? '' : ' · 지금은 안 씀'}</dd><dt>기전</dt><dd>${f.mech}</dd><dt>몸의 반응</dt><dd>${f.react}</dd></dl>`;
   renderIngr(f, dd);
   renderSE(f);
   // notes
@@ -1686,22 +1685,22 @@ function doseRange(k) {
 function renderIngr(f, box) {
   const list = INGR[f.k], di = state.dose[f.k], si = state.ingr[f.k];
   const wrap = H('div', { cls: 'ingr-wrap' }, box);
-  H('h4', { cls: 'ingr-h', text: '성분별 하루 용량 (mg)' }, wrap);
+  H('h4', { cls: 'ingr-h', text: '제품별 하루 용량 (mg)' }, wrap);
   const scroll = H('div', { cls: 'ingr-scroll' }, wrap);
   const tb = H('table', { cls: 'ingr' }, scroll);
   const hr = H('tr', null, H('thead', null, tb));
-  H('th', { scope: 'col', text: '성분' }, hr);
+  H('th', { scope: 'col', text: '제품명(성분명)' }, hr);
   DOSE_L.forEach((l, i) => H('th', { scope: 'col', cls: i === di ? 'cur' : '', text: l }, hr));
   const body = H('tbody', null, tb);
   list.forEach((row, ri) => {
     const tr = H('tr', { cls: ri === si ? 'sel' : '' }, body);
-    const b = H('button', { type: 'button', 'aria-pressed': String(ri === si), title: '이 성분을 예시로 보기', text: row[0] }, H('td', null, tr));
+    const b = H('button', { type: 'button', 'aria-pressed': String(ri === si), title: '이 제품을 예시로 보기', text: row[0] }, H('td', null, tr));
     b.addEventListener('click', () => { state.ingr[f.k] = ri; render(); });
     for (let c = 1; c <= 3; c++) H('td', { cls: (c - 1 === di ? 'cur' : '') + (row[c] === '—' ? ' na' : ''), text: row[c] }, tr);
   });
   const note = list[si][4];
   if (note) H('p', { cls: 'ingr-note', html: `<b>${list[si][0]}</b> ${note}` }, wrap);
-  H('p', { cls: 'fine', text: '표준은 흔히 쓰는 유지 용량의 예시이고 ½ 용량·2배는 그 절반과 두 배입니다. 시작·최대 용량, 신기능·나이에 따른 조정은 허가사항을 확인하세요. 성분을 누르면 카드와 처방 강도의 예시가 그 성분으로 바뀌며, 강도는 성분과 상관없이 계열 평균으로 계산합니다.' }, wrap);
+  H('p', { cls: 'fine', text: '제품명은 국내 대표 제품(주로 오리지널)의 예시이며 같은 성분의 다른 제품도 있습니다. 표준은 흔히 쓰는 유지 용량의 예시이고 ½ 용량·2배는 그 절반과 두 배입니다. 시작·최대 용량, 신기능·나이에 따른 조정은 허가사항을 확인하세요. 제품을 누르면 카드와 처방 강도의 예시가 그 제품으로 바뀌며, 강도는 성분과 상관없이 계열 평균으로 계산합니다.' }, wrap);
 }
 function renderIntensity() {
   const box = $('#intensity'); box.innerHTML = '';
@@ -1716,7 +1715,7 @@ function renderIntensity() {
   H('div', { cls: 'int-scale', 'aria-hidden': 'true', html: '<span style="left:0">0</span><span style="left:33.33%">10</span><span style="left:66.67%">20</span><span style="left:100%">30 mmHg</span>' }, box);
   if (n) {
     const rows = H('div', { cls: 'int-rows' }, box);
-    R.on.forEach(x => H('div', { html: `<span>${x.abbr} ${DOSE_L[state.dose[x.k]]} <span style="color:var(--muted)">(예: ${doseText(x.k, state.dose[x.k])})</span></span><b>−${(STD_EFF[x.k] * DOSE_F[state.dose[x.k]]).toFixed(1)}</b>` }, rows));
+    R.on.forEach(x => H('div', { html: `<span>${x.abbr} ${DOSE_L[state.dose[x.k]]} <span style="color:var(--muted)">· ${doseText(x.k, state.dose[x.k])}</span></span><b>−${(STD_EFF[x.k] * DOSE_F[state.dose[x.k]]).toFixed(1)}</b>` }, rows));
     if (n >= 2) H('div', { html: `<span style="color:var(--muted)">단순 합 −${R.sum.toFixed(1)} × 병용 계수 ${COMBO[Math.min(n, 6)]}</span><b>−${R.e.toFixed(1)}</b>` }, rows);
   }
   const doses = R.on.map(x => state.dose[x.k]);
