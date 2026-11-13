@@ -11,6 +11,7 @@ img { max-width: 100%; }
 [hidden] { display: none !important; }
 </style>
 <title>혈압 조절 회로도</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
@@ -309,14 +310,48 @@ h1 { margin: 0; font-size: clamp(28px, 4vw, 40px); line-height: 1.15; font-weigh
 .patient b { font-family: var(--font-mono); }
 .linkbtn { appearance: none; border: 0; background: none; padding: 0; color: var(--fluid); font-weight: 600; font-size: 13px; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
 .drug-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
-.drug { appearance: none; text-align: left; border: 1.5px solid var(--line); background: var(--surface); border-radius: 11px; padding: 9px 11px; cursor: pointer; display: grid; gap: 2px; align-content: start; min-width: 0; }
+.drug { border: 1.5px solid var(--line); background: var(--surface); border-radius: 11px; padding: 0 0 9px; display: grid; gap: 5px; align-content: start; min-width: 0; }
 .drug:hover { border-color: var(--faint); }
-.drug[aria-pressed="true"] { border-color: var(--drug); background: var(--drug-tint); }
+.drug.on { border-color: var(--drug); background: var(--drug-tint); }
 .drug.focus { box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--fluid); }
+.drug-main { appearance: none; border: 0; background: transparent; text-align: left; padding: 9px 11px 0; cursor: pointer; display: grid; gap: 2px; border-radius: 10px 10px 0 0; min-width: 0; }
+.drug-eff { font-family: var(--font-mono); font-size: 11.5px; font-weight: 600; }
+.dose { display: flex; gap: 2px; margin: 0 9px; padding: 2px; background: var(--sunken); border-radius: 8px; }
+.dose button { flex: 1 1 0; appearance: none; border: 0; background: transparent; font-size: 11.5px; font-weight: 600; color: var(--muted); padding: 3px 2px; border-radius: 6px; cursor: pointer; white-space: nowrap; }
+.dose button[aria-pressed="true"] { background: var(--surface); color: var(--ink); box-shadow: var(--shadow); }
+.drug:not(.on) .dose button[aria-pressed="true"] { box-shadow: none; }
+.dose-ex { font-size: 11px; color: var(--muted); padding: 0 11px; line-height: 1.4; }
+/* 처방 강도 */
+.intensity { border: 1px solid var(--line); border-radius: 12px; padding: 12px; display: grid; gap: 7px; }
+.int-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 10px; }
+.int-head h4 { margin: 0; font-size: 13px; color: var(--ink); }
+.int-val { font-family: var(--font-mono); font-size: 13px; font-weight: 600; }
+.int-badge { display: inline-block; font-size: 12px; font-weight: 700; padding: 2px 10px; border-radius: 99px; margin-left: 6px; font-family: var(--font-sans); }
+.int-badge.low { background: var(--sunken); color: var(--muted); }
+.int-badge.mod { background: var(--warn-tint); color: var(--warn); }
+.int-badge.high { background: var(--drug-tint); color: var(--drug); }
+.int-bar { position: relative; display: flex; height: 20px; }
+.int-bar span { display: grid; place-items: center; font-size: 10.5px; font-weight: 700; color: var(--muted); }
+.int-bar .z1 { width: 33.33%; background: var(--sunken); border-radius: 10px 0 0 10px; }
+.int-bar .z2 { width: 33.33%; background: var(--warn-tint); color: var(--warn); }
+.int-bar .z3 { width: 33.34%; background: var(--drug-tint); color: var(--drug); border-radius: 0 10px 10px 0; }
+.int-mark { position: absolute; top: -4px; bottom: -4px; width: 4px; margin-left: -2px; background: var(--ink); border-radius: 2px; box-shadow: 0 0 0 2px var(--surface); transition: left 0.35s; }
+.int-scale { position: relative; height: 12px; font-family: var(--font-mono); font-size: 10px; color: var(--faint); }
+.int-scale span, .kg-scale span { white-space: nowrap; }
+.int-scale span { position: absolute; top: 0; transform: translateX(-50%); }
+.int-scale span:first-child { transform: none; }
+.int-scale span:last-child { transform: translateX(-100%); }
+.int-rows { display: grid; gap: 3px; font-size: 12.5px; }
+.int-rows div { display: flex; justify-content: space-between; gap: 8px; }
+.int-rows b { font-family: var(--font-mono); font-weight: 600; }
+.int-note { margin: 0; font-size: 12.5px; line-height: 1.6; }
+.se-dose { justify-self: start; font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 99px; }
+.se-dose.up { background: var(--warn-tint); color: var(--warn); }
+.se-dose.none, .se-dose.form { background: var(--sunken); color: var(--muted); }
 .drug-top { display: flex; justify-content: space-between; align-items: center; gap: 6px; }
 .drug-top b { font-size: 15px; }
 .drug-top .check { width: 18px; height: 18px; border-radius: 5px; border: 1.5px solid var(--line); display: grid; place-items: center; font-size: 12px; font-weight: 700; color: transparent; }
-.drug[aria-pressed="true"] .check { background: var(--drug); border-color: var(--drug); color: var(--on-color); }
+.drug.on .check { background: var(--drug); border-color: var(--drug); color: var(--on-color); }
 .drug-name { font-size: 12px; color: var(--muted); line-height: 1.35; }
 .drug-tgt { font-size: 12px; font-weight: 600; line-height: 1.35; }
 .badge { font-size: 10.5px; font-weight: 700; padding: 1px 7px; border-radius: 99px; background: var(--sunken); color: var(--muted); white-space: nowrap; }
@@ -612,6 +647,7 @@ footer ol { margin: 0; padding-left: 18px; display: grid; gap: 2px; }
       <div class="pan" id="pan-drugs" role="tabpanel" aria-labelledby="tab-drugs" hidden>
         <div class="patient" id="patient"></div>
         <div class="drug-grid" id="drugGrid"></div>
+        <div class="intensity" id="intensity" aria-live="polite"></div>
         <div class="result" id="result"></div>
         <article class="drug-detail" id="drugDetail"></article>
         <article class="se-box" id="seBox" aria-live="polite"></article>
@@ -627,6 +663,8 @@ footer ol { margin: 0; padding-left: 18px; display: grid; gap: 2px; }
       <li>대한고혈압학회. 2022 focused update of the 2018 KSH Guidelines. (혈압 분류)</li>
       <li>2025 AHA/ACC Guideline for the Prevention, Detection, Evaluation and Management of High Blood Pressure in Adults. (1차 약제, 생활습관)</li>
       <li>Ettehad D, et al. Blood pressure lowering for prevention of cardiovascular disease and death. Lancet 2016. (수축기 10mmHg당 상대위험)</li>
+      <li>Wang N, et al. Blood pressure-lowering efficacy of antihypertensive drugs and their combinations. Lancet 2025. (계열별 표준 용량 효과, 강도 분류, 용량 규칙)</li>
+      <li>Law MR, et al. Value of low dose combination treatment with blood pressure lowering drugs. BMJ 2003. (½ 용량 효과, 병용의 가산성)</li>
       <li>Primary role of the kidney in pathogenesis of hypertension. (압력-나트륨이뇨)</li>
       <li>2024 ESC Guidelines for the Management of Elevated Blood Pressure and Hypertension.</li>
     </ol>
@@ -663,45 +701,54 @@ function H(tag, attrs, parent) {
    ===================================================================== */
 /*MODEL-START*/
 const BASE_MAP = 89.33, BASE_PP = 40, BASE_HR = 70;
+// 약 세기 계수: 비만형(154/101) 환자에서 표준 용량 효과가 Wang 등(Lancet 2025) 계열 평균에 맞도록 조정
+// ACE 억제제 6.8 · ARB 8.5 · CCB 8.9 · 베타차단제 9.5 · 티아지드 10.8 mmHg (MRA는 PATHWAY-2 약 8.7)
+const DK = { A: 0.32, E: 0.27, C: 0.088, T: 0.12, B: 0.25, M: 0.72 };
+// 여러 계열을 함께 쓰면 보상 반응 때문에 단순 합보다 덜 더해짐 (2제 표준 14.9 ≈ 단일제 합 × 0.86)
+const COMBO = [1, 1, 0.86, 0.82, 0.78, 0.75, 0.72];
+// d[약] = 0(안 씀) 또는 용량 세기 (½ 용량 0.8 · 표준 1 · 2배 1.172), true는 표준으로 취급
 function simulate(p, d) {
   d = d || {};
-  const reflex = d.ccb ? (d.bb ? 1.02 : 1.07) : 1;          // 혈관 확장 → 압수용체 반사로 교감 약간 ↑
+  const s = k => (d[k] === true ? 1 : +d[k] || 0);
+  const sA = s('arb'), sE = s('acei'), sC = s('ccb'), sT = s('thz'), sB = s('bb'), sM = s('mra');
+  const reflex = 1 + 0.07 * sC * (1 - 0.7 * Math.min(sB, 1));   // 혈관 확장 → 압수용체 반사로 교감 약간 ↑
   const S0 = p.symp * reflex;
-  const b1 = S0 * (d.bb ? 0.74 : 1);                         // 심장·신장 β1 작용
-  const a1 = S0 * (p.decong ? 1.35 : 1);                     // 세동맥 α1 작용
-  const sens = 0.04 + 0.3 * p.kidney + 0.12 * p.aldo;        // 염분 민감도
+  const b1 = S0 * (1 - DK.B * sB);                                // 심장·신장 β1 작용
+  const a1 = S0 * (p.decong ? 1.35 : 1);                          // 세동맥 α1 작용
+  const sens = 0.04 + 0.3 * p.kidney + 0.12 * p.aldo;             // 염분 민감도
   let V = 1, renin = 1, angII = 1, at1 = 1, aldo = 1, mr = 1;
   for (let i = 0; i < 300; i++) {
-    let r = Math.pow(V, -3) * Math.pow(b1, 0.5) + (p.raas - 1); // 혈액량 되먹임 + 부적절(억제 안 되는) 레닌
+    let r = Math.pow(V, -3) * Math.pow(b1, 0.5) + (p.raas - 1);   // 혈액량 되먹임 + 부적절(억제 안 되는) 레닌
     if (p.aldo) r *= 0.4;
-    if (d.acei || d.arb) r *= 1.6;                           // AngII 음성되먹임 소실 → 반응성 레닌 ↑
-    renin = r;
-    angII = renin * (d.acei ? 0.35 : 1);
-    at1 = angII * (d.arb ? 0.33 : 1);
+    renin = r * (1 + 0.6 * Math.min(1, Math.max(sA, sE)));        // 표시용: 음성되먹임이 끊겨 반응성 상승
+    angII = renin * (1 - 0.65 * Math.min(1.2, sE));
+    at1 = r * (1 - DK.E * sE) * (1 - DK.A * sA);                  // 실제 AT₁ 작용 (반응성 상승까지 반영한 순 효과)
     aldo = 0.3 + 0.7 * at1 + (p.aldo ? 2.2 : 0);
-    mr = aldo * (d.mra ? 0.3 : 1);
+    mr = aldo * (1 - DK.M * sM);
     let ret = (1 + 0.3 * p.kidney) * Math.pow(mr, 0.1) * Math.pow(at1, 0.05) * Math.pow(b1, 0.05) * (p.nsaid ? 1.1 : 1);
-    if (p.aldo) ret *= 1 + 0.38 * (d.mra ? 0.15 : 1);
-    if (d.thz) ret /= (p.nsaid ? 1.07 : 1.18);
+    if (p.aldo) ret *= 1 + 0.38 * Math.max(0.15, 1 - DK.M * sM);
+    if (sT) ret /= 1 + DK.T * sT * (p.nsaid ? 0.4 : 1);
     const Vt = Math.pow(p.salt, sens) * ret;
     V = 0.85 * V + 0.15 * Math.min(Vt, 1.9);
   }
   const lnM = 0.7 * Math.log(V) + 0.15 * Math.log(b1) + 0.2 * Math.log(a1) + 0.17 * Math.log((at1 + 0.6) / 1.6)
     + Math.log(1 + 0.11 * p.endo) + Math.log(1 + 0.03 * p.stiff)
-    + (d.ccb ? Math.log(0.9) : 0) + (d.thz ? Math.log(0.975) : 0)
-    + (p.aldo ? 0.12 * (d.mra ? 0.2 : 1) : 0)
-    + (p.nsaid && (d.acei || d.arb) ? 0.03 : 0);
+    + Math.log(1 - DK.C * sC) + Math.log(1 - 0.025 * sT)
+    + (p.aldo ? 0.12 * Math.max(0.2, 1 - DK.M * sM) : 0)
+    + (p.nsaid && (sA || sE) ? 0.03 : 0);
   const M = Math.exp(lnM);
   const hrF = Math.pow(b1, 0.4);
   const co = hrF * Math.pow(V, 0.45) * Math.pow(b1, 0.1);
-  const svr = M / co;
-  const map = BASE_MAP * M;
+  let map = BASE_MAP * M;
   const sv = co / hrF;
-  const pp = BASE_PP * Math.pow(sv, 0.5) * (1 + 0.8 * p.stiff) * Math.pow(map / BASE_MAP, 0.8);
+  let pp = BASE_PP * Math.pow(sv, 0.5) * (1 + 0.8 * p.stiff) * Math.pow(map / BASE_MAP, 0.8);
+  const n = [sA, sE, sC, sT, sB, sM].filter(x => x > 0).length;
+  if (n >= 2) { const b0 = simulate(p, {}); const c = COMBO[Math.min(n, 6)]; map = b0.map - (b0.map - map) * c; pp = b0.pp - (b0.pp - pp) * c; }
+  const svr = (map / BASE_MAP) / co;
   let sbp = map + (2 / 3) * pp, dbp = map - pp / 3;
   if (sbp > 170) sbp = 170 + 70 * Math.tanh((sbp - 170) / 70);   // 극단값 완만하게 상한
   if (dbp > 105) dbp = 105 + 35 * Math.tanh((dbp - 105) / 35);
-  return { sbp: Math.round(sbp), dbp: Math.round(dbp), map, hr: Math.round(BASE_HR * hrF), V, co, svr, renin, angII, at1, aldo, mr, b1, a1, S: S0, sens };
+  return { sbp: Math.round(sbp), dbp: Math.round(dbp), map, pp, hr: Math.round(BASE_HR * hrF), V, co, svr, renin, angII, at1, aldo, mr, b1, a1, S: S0, sens };
 }
 /*MODEL-END*/
 
@@ -835,6 +882,35 @@ const DRUGS = [
 ];
 const DRUGMAP = Object.fromEntries(DRUGS.map(d => [d.k, d]));
 
+/* ---------- 용량과 강도 ----------
+   표준 용량 단일제의 수축기 감소 (기준 154 mmHg): Wang 등, Lancet 2025 계열 평균.
+   MRA는 그 요약에 계열 평균이 없어 PATHWAY-2(스피로노락톤 추가, 약 −8.7 mmHg)로 근사.
+   ½ 용량 ≈ 표준의 80% (Law 등, BMJ 2003) · 2배 용량 ≈ +1.5 mmHg (단일제), 2제 모두 2배 ≈ +2.5 mmHg. */
+const STD_EFF = { acei: 6.8, arb: 8.5, ccb: 8.9, bb: 9.5, thz: 10.8, mra: 8.7 };
+const DOSE_F = [0.8, 1, 1 + 1.5 / 8.7];
+const DOSE_L = ['½ 용량', '표준', '2배'];
+const DOSE_EX = {
+  arb: ['로사르탄', '25 · 50 · 100 mg'], acei: ['라미프릴', '2.5 · 5 · 10 mg'], ccb: ['암로디핀', '2.5 · 5 · 10 mg'],
+  thz: ['히드로클로로티아지드', '12.5 · 25 · 50 mg'], bb: ['비소프롤롤', '2.5 · 5 · 10 mg'], mra: ['스피로노락톤', '12.5 · 25 · 50 mg'],
+};
+const intensityOf = e => e >= 20 ? ['high', '고강도'] : e >= 10 ? ['mod', '중강도'] : ['low', '저강도'];
+// 처방 강도 = (각 약의 표준 효과 × 용량 계수) 합 × 병용 계수
+function regimen() {
+  const on = DRUGS.filter(x => state.drugs[x.k]);
+  const sum = on.reduce((a, x) => a + STD_EFF[x.k] * DOSE_F[state.dose[x.k]], 0);
+  return { on, sum, e: sum * COMBO[Math.min(on.length, 6)] };
+}
+// 모델에 넘길 약 세기: 안 쓰면 0, 쓰면 용량 계수
+function drugStr() { const o = {}; DRUGS.forEach(x => { o[x.k] = state.drugs[x.k] ? DOSE_F[state.dose[x.k]] : 0; }); return o; }
+// 부작용이 용량에 따라 달라지는지: up = 용량을 올리면 더 잘 생김, none = 용량과 거의 무관, form = 제형 영향이 큼
+const SE_DOSE = {
+  thz: { '저칼륨혈증': 'up', '저나트륨혈증': 'up', '요산 상승 · 통풍': 'up', '혈당 상승': 'up' },
+  ccb: { '발목 부종': 'up', '얼굴 화끈거림 · 두통': 'up', '두근거림 (반사성 빈맥)': 'form' },
+  bb: { '서맥 · 피로': 'up', '기관지 수축': 'up' },
+  acei: { '마른기침': 'none', '혈관부종': 'none' },
+  mra: { '고칼륨혈증': 'up', '여성형 유방 · 월경 불순': 'up' },
+};
+
 /* ---------- 부작용과 그 이유 ----------
    chain: 약의 작용 → … → 부작용 / sites: 회로도에서 주황 점선으로 표시할 곳 */
 const SE_K = { name: '고칼륨혈증', short: '고칼륨', where: '부신피질 → 집합관' };
@@ -943,7 +1019,7 @@ const INFO = {
 const state = {
   mode: 'normal', sc: 'drop', step: 0, playing: false,
   lv: { salt: 1, kidney: 1, symp: 1, raas: 1, endo: 1, stiff: 0, aldo: 0, nsaid: 0, decong: 0 },
-  drugs: { arb: true }, drugFocus: 'arb', seIdx: 0, sel: 'map',
+  drugs: { arb: true }, dose: { arb: 1, acei: 1, ccb: 1, thz: 1, bb: 1, mra: 1 }, drugFocus: 'arb', seIdx: 0, sel: 'map',
 };
 let timer = null;
 
@@ -1166,12 +1242,21 @@ function presetMatch() {
 {
   const grid = $('#drugGrid');
   DRUGS.forEach(d => {
-    const b = H('button', { cls: 'drug', type: 'button', 'data-k': d.k, 'aria-pressed': 'false' }, grid);
+    const card = H('div', { cls: 'drug', 'data-k': d.k }, grid);
+    const b = H('button', { cls: 'drug-main', type: 'button', 'aria-pressed': 'false' }, card);
     b.innerHTML = `<span class="drug-top"><b>${d.abbr}</b><span class="check" aria-hidden="true">✓</span></span>
       <span class="drug-name">${d.name}</span>
       <span class="drug-tgt">${d.target}</span>
-      <span><span class="badge${d.first ? ' first' : ''}">${d.badge}</span></span>`;
-    b.addEventListener('click', () => { state.drugs[d.k] = !state.drugs[d.k]; if (state.drugFocus !== d.k) state.seIdx = 0; state.drugFocus = d.k; render(); });
+      <span><span class="badge${d.first ? ' first' : ''}">${d.badge}</span></span>
+      <span class="drug-eff"></span>`;
+    const focus = () => { if (state.drugFocus !== d.k) state.seIdx = 0; state.drugFocus = d.k; };
+    b.addEventListener('click', () => { state.drugs[d.k] = !state.drugs[d.k]; focus(); render(); });
+    const seg = H('div', { cls: 'dose', role: 'group', 'aria-label': d.abbr + ' 용량' }, card);
+    DOSE_L.forEach((lab, i) => {
+      const db = H('button', { type: 'button', 'data-i': i, 'aria-pressed': 'false', text: lab }, seg);
+      db.addEventListener('click', () => { state.dose[d.k] = i; state.drugs[d.k] = true; focus(); render(); });
+    });
+    H('span', { cls: 'dose-ex', text: `예: ${DOSE_EX[d.k][0]} ${DOSE_EX[d.k][1]}` }, card);
   });
 }
 
@@ -1274,7 +1359,7 @@ function edgeLevels(r) {
 function viewModel(withDrugs) {
   const p = params(state.lv);
   const r0 = simulate(p, {});
-  const r = withDrugs ? simulate(p, state.drugs) : r0;
+  const r = withDrugs ? simulate(p, drugStr()) : r0;
   const L = edgeLevels(r), L0 = edgeLevels(r0);
   const edges = {};
   EDGES.forEach(e => {
@@ -1474,10 +1559,16 @@ function renderDrugPanel(v) {
   $('#patient').innerHTML = `<span>환자: <strong>${pm ? pm.name : (active.length ? active.slice(0, 2).join(' + ') + (active.length > 2 ? ' 외' : '') : '정상')}</strong> · 치료 전 <b>${v.r0.sbp}/${v.r0.dbp}</b></span>`;
   const lb = H('button', { cls: 'linkbtn', type: 'button', text: '고혈압 원인 바꾸기' }, $('#patient'));
   lb.addEventListener('click', () => setMode('htn'));
-  $$('#drugGrid .drug').forEach(b => {
-    b.setAttribute('aria-pressed', String(!!state.drugs[b.dataset.k]));
-    b.classList.toggle('focus', b.dataset.k === state.drugFocus);
+  $$('#drugGrid .drug').forEach(card => {
+    const k = card.dataset.k, on = !!state.drugs[k], di = state.dose[k];
+    card.classList.toggle('on', on);
+    card.classList.toggle('focus', k === state.drugFocus);
+    $('.drug-main', card).setAttribute('aria-pressed', String(on));
+    $$('.dose button', card).forEach(db => db.setAttribute('aria-pressed', String(+db.dataset.i === di)));
+    const e1 = STD_EFF[k] * DOSE_F[di];
+    $('.drug-eff', card).textContent = `단독 −${e1.toFixed(1)} mmHg · ${intensityOf(e1)[1]}`;
   });
+  renderIntensity();
   // result
   const d = state.drugs, n = Object.values(d).filter(Boolean).length;
   const delta = v.r0.sbp - v.sbp;
@@ -1485,7 +1576,7 @@ function renderDrugPanel(v) {
   H('div', { cls: 'res-bp', html: `<span>치료 전</span><b>${v.r0.sbp}/${v.r0.dbp}</b><span class="arrow">→</span><span>치료 후</span><b>${v.sbp}/${v.dbp}</b>` }, res);
   H('div', { cls: 'res-delta', text: n ? `수축기 ${delta >= 0 ? '−' : '+'}${Math.abs(delta)} mmHg · 약 ${n}가지` : '선택한 약 없음' }, res);
   const kIn = r => ({ at1: r.at1, map: r.map, mr: r.mr, kimp: v.p.kidney, nsaid: v.p.nsaid, salt: v.p.salt });
-  const kb = kEstimate(kIn(v.r0), false).K, ka = kEstimate(kIn(v.r), !!d.thz).K;
+  const kb = kEstimate(kIn(v.r0), 0).K, ka = kEstimate(kIn(v.r), drugStr().thz).K;
   H('div', { cls: 'res-k', html: `혈중 K⁺ 추정 <b class="${kClass(kb)}">${kb.toFixed(1)}</b> → <b class="${kClass(ka)}">${ka.toFixed(1)}</b> mmol/L · <span class="${kClass(ka)}">${kLabel(ka)}</span>` }, res);
   const rr = H('div', { cls: 'rr' }, res);
   H('h4', { text: '예상 상대위험 감소', style: 'margin:0' }, rr);
@@ -1502,7 +1593,7 @@ function renderDrugPanel(v) {
   const f = DRUGMAP[state.drugFocus] || DRUGS[0];
   const dd = $('#drugDetail');
   dd.innerHTML = `<h3>${f.abbr} <span style="font-weight:500;color:var(--muted);font-size:13px">${f.name}</span></h3>
-    <dl><dt>예</dt><dd>${f.ex}</dd><dt>표적</dt><dd>${f.target}</dd><dt>기전</dt><dd>${f.mech}</dd><dt>몸의 반응</dt><dd>${f.react}</dd></dl>`;
+    <dl><dt>예</dt><dd>${f.ex}</dd><dt>표적</dt><dd>${f.target}</dd><dt>용량</dt><dd>${DOSE_L[state.dose[f.k]]} (예: ${doseText(f.k, state.dose[f.k])}) · 단독 기대 −${(STD_EFF[f.k] * DOSE_F[state.dose[f.k]]).toFixed(1)} mmHg, ${intensityOf(STD_EFF[f.k] * DOSE_F[state.dose[f.k]])[1]}${state.drugs[f.k] ? '' : ' · 지금은 안 씀'}</dd><dt>기전</dt><dd>${f.mech}</dd><dt>몸의 반응</dt><dd>${f.react}</dd></dl>`;
   renderSE(f);
   // notes
   const notes = [];
@@ -1527,6 +1618,38 @@ function renderDrugPanel(v) {
   notes.forEach(([k, t]) => H('li', { cls: k, text: t }, ul));
 }
 
+/* ---------- 처방 강도 ---------- */
+function doseText(k, i) { const parts = DOSE_EX[k][1].replace(' mg', '').split(' · '); return `${DOSE_EX[k][0]} ${parts[i]} mg`; }
+function renderIntensity() {
+  const box = $('#intensity'); box.innerHTML = '';
+  const R = regimen(), n = R.on.length;
+  const head = H('div', { cls: 'int-head' }, box);
+  H('h4', { text: '처방 강도 · 표준 환자(수축기 154 mmHg) 기준' }, head);
+  if (n) { const [c, lab] = intensityOf(R.e); H('span', { cls: 'int-val', html: `−${R.e.toFixed(1)} mmHg<span class="int-badge ${c}">${lab}</span>` }, head); }
+  else H('span', { cls: 'int-val', text: '약 없음' }, head);
+  const bar = H('div', { cls: 'int-bar', 'aria-hidden': 'true', html: '<span class="z1">저강도</span><span class="z2">중강도</span><span class="z3">고강도</span>' }, box);
+  const mk = H('i', { cls: 'int-mark', style: `left:${clamp(R.e / 30 * 100, 0, 100).toFixed(1)}%` }, bar);
+  mk.hidden = !n;
+  H('div', { cls: 'int-scale', 'aria-hidden': 'true', html: '<span style="left:0">0</span><span style="left:33.33%">10</span><span style="left:66.67%">20</span><span style="left:100%">30 mmHg</span>' }, box);
+  if (n) {
+    const rows = H('div', { cls: 'int-rows' }, box);
+    R.on.forEach(x => H('div', { html: `<span>${x.abbr} ${DOSE_L[state.dose[x.k]]} <span style="color:var(--muted)">(예: ${doseText(x.k, state.dose[x.k])})</span></span><b>−${(STD_EFF[x.k] * DOSE_F[state.dose[x.k]]).toFixed(1)}</b>` }, rows));
+    if (n >= 2) H('div', { html: `<span style="color:var(--muted)">단순 합 −${R.sum.toFixed(1)} × 병용 계수 ${COMBO[Math.min(n, 6)]}</span><b>−${R.e.toFixed(1)}</b>` }, rows);
+  }
+  const doses = R.on.map(x => state.dose[x.k]);
+  let note;
+  if (!n) note = '약을 고르면 표준 환자에서 기대되는 수축기 감소량과 강도가 나옵니다. 저강도는 10 mmHg 미만, 중강도는 10~19, 고강도는 20 mmHg 이상입니다.';
+  else if (R.on.some(x => x.k === 'acei') && R.on.some(x => x.k === 'arb')) note = 'ACE 억제제와 ARB는 같은 경로를 막는 약이라 함께 쓰지 않습니다. 강도를 올리려면 CCB나 이뇨제처럼 다른 경로의 약을 더합니다.';
+  else if (n === 1 && doses[0] === 2) note = '단일제는 용량을 2배로 올려도 약 1.5 mmHg만 더 내려갑니다. 같은 노력이라면 다른 계열을 하나 더하는 쪽이 훨씬 크게 내려갑니다.';
+  else if (n === 1) note = '표준 용량 단일제는 대부분 저강도입니다. 강도를 올리려면 용량보다 다른 계열을 더하는 것이 효과적입니다.';
+  else if (doses.every(x => x === 0)) note = '½ 용량도 표준 효과의 약 80%가 나옵니다. 저용량끼리 병용하면 용량에 따라 커지는 부작용은 줄이면서 강도를 올릴 수 있습니다.';
+  else if (R.e >= 20) note = '계열이 다른 약을 셋 이상 함께 쓰면 고강도(20 mmHg 이상)에 도달합니다.';
+  else if (n === 2) note = '2제 표준 병용은 평균 약 15 mmHg로 중강도입니다. 두 약을 모두 2배로 올려도 약 2.5 mmHg가 더해질 뿐입니다.';
+  else note = '병용할수록 몸의 보상 반응이 커져 효과가 단순 합보다 조금 덜 더해집니다.';
+  H('p', { cls: 'int-note', text: note }, box);
+  H('p', { cls: 'fine', text: 'Wang 등(Lancet 2025, 위약대조 시험 484건)의 계열 평균과 용량 규칙으로 계산했습니다. MRA는 PATHWAY-2 결과로 근사했습니다. 치료 전 혈압이 낮을수록 효과가 작아지므로, 위의 "치료 후" 혈압(이 환자의 상태를 반영한 모델 값)과는 다를 수 있습니다.' }, box);
+}
+
 /* ---------- 부작용: 패널 + 회로도 표시 ---------- */
 function renderSE(f) {
   const list = SIDE[f.k] || [];
@@ -1540,6 +1663,12 @@ function renderSE(f) {
     b.addEventListener('click', () => { state.seIdx = i; renderSE(f); applySE(); });
   });
   if (!it) return;
+  const dz = (SE_DOSE[f.k] || {})[it.name];
+  if (dz) {
+    let t = dz === 'up' ? '용량을 올리면 더 잘 생깁니다' : dz === 'none' ? '용량과 거의 상관없이 생깁니다' : '용량보다 제형(작용 속도)의 영향이 큽니다';
+    if (dz === 'up' && state.drugs[f.k]) t += state.dose[f.k] === 2 ? ' · 지금 2배 용량이라 더 주의' : state.dose[f.k] === 0 ? ' · 지금 ½ 용량이라 덜합니다' : '';
+    H('span', { cls: 'se-dose ' + dz, text: t }, box);
+  }
   const ds = it.d === undefined ? 0 : it.d;
   const ol = H('ol', { cls: 'chain', 'aria-label': '생기는 과정' }, box);
   it.chain.forEach((c, i) => {
@@ -1894,7 +2023,8 @@ function ptAt(s) {
 }
 function nephronProb(k, thz = ORG.F.thz) {
   const pP = clamp(0.5 * Math.pow(k.at1, 0.08) * Math.pow(BASE_MAP / k.map, 0.9) * (1 + 0.2 * k.kimp + 0.1 * k.nsaid), 0.2, 0.85);
-  const pD = clamp(0.4 * (thz ? 0.15 : 1) * (1 + 0.15 * k.kimp), 0.03, 0.8);
+  const sT = thz === true ? 1 : (+thz || 0);   // 티아지드 세기 (용량에 따라 NCC 차단 정도가 달라짐)
+  const pD = clamp(0.4 * (1 - 0.85 * Math.min(sT, 1.2)) * (1 + 0.15 * k.kimp), 0.03, 0.8);
   const pC = clamp(0.45 * Math.pow(Math.max(k.mr, 0.05), 0.6) * (1 + 0.15 * k.kimp + 0.1 * k.nsaid), 0.05, 0.88);
   return [pP, 0.5, pD, pC];
 }
@@ -1904,12 +2034,15 @@ const U0 = 0.5 * 0.5 * 0.6 * 0.55;
    분비 능력 C = 알도스테론(MR) 작용 × 집합관에 도착하는 Na⁺(소금 섭취 포함) × 신기능 × NSAIDs.
    정상상태에서 섭취량만큼 내보내려면 C가 낮을수록 혈중 K⁺이 높아져야 한다. */
 const K_REAB = [0.65, 0.7, 0.1];
-function kFrom(prob, k) {
+// 티아지드의 K⁺ 손실은 혈압 효과보다 용량에 더 민감하다: 실제 용량 비(½·1·2배)로 소변 흐름 증가 효과를 더함
+const thzRatio = s => (s === true ? 1 : !s ? 0 : s < 0.9 ? 0.5 : s < 1.1 ? 1 : 2);
+function kFrom(prob, k, thz) {
   const dist = ((1 - prob[0]) * (1 - prob[1]) * (1 - prob[2])) / (0.5 * 0.5 * 0.6) * Math.pow(k.salt || 1, 0.8);
-  const C = Math.pow(Math.max(k.mr, 0.05), 0.45) * Math.pow(dist, 0.5) * (1 - 0.2 * k.kimp) * (1 - 0.15 * k.nsaid);
+  const tr = thzRatio(thz);
+  const C = Math.pow(Math.max(k.mr, 0.05), 0.45) * Math.pow(dist, 0.5) * (1 - 0.2 * k.kimp) * (1 - 0.15 * k.nsaid) * (tr ? 1 + 0.25 * (tr - 0.5) : 1);
   return { C, K: clamp(4.2 * Math.pow(C, -0.3), 2.5, 6.8) };
 }
-function kEstimate(k, thz) { return kFrom(nephronProb(k, thz), k); }
+function kEstimate(k, thz) { return kFrom(nephronProb(k, thz), k, thz); }
 const kr = K => Math.round(K * 10) / 10;   // 화면에 보이는 값(소수 첫째 자리)으로 판정
 const kClass = K => (K = kr(K)) < 3.5 ? 'lo' : K > 5.0 ? 'hi' : 'ok';
 const kLabel = K => (K = kr(K)) < 3.0 ? '저칼륨혈증' : K < 3.5 ? '저칼륨혈증 쪽' : K >= 6.0 ? '고칼륨혈증 · 위험' : K > 5.0 ? '고칼륨혈증 쪽' : '정상 범위';
@@ -1990,7 +2123,7 @@ function drawNephron(k, dt) {
   setOp(ON.mraB, ORG.F.mra ? 1 : 0); setOp(ON.mrX, ORG.F.mra ? 1 : 0);
   setOp(ON.bbB, ORG.F.bb ? 1 : 0);
   setOp(ON.mrGlow, clamp(k.mr / 2.4, 0.1, 1));
-  const kk = kFrom(prob, k);
+  const kk = kFrom(prob, k, ORG.F.thz);
   setText(ON.kSecT, `K⁺ 분비 ×${kk.C.toFixed(2)}`);
   updateKGauge(kk.K);
   if (!dt) return;
@@ -2047,7 +2180,7 @@ function updateOrgans(v) {
     T.lvh = clamp((v.sbp - 125) / 85, 0, 0.7);
     T.remodel = clamp(0.6 * v.p.endo + (v.sbp - 130) / 80, 0, 1);
     T.damage = clamp((v.r0.sbp - 140) / 40, 0, 1);
-    if (state.mode === 'drugs') Object.keys(F).forEach(key => { F[key] = !!state.drugs[key]; });
+    if (state.mode === 'drugs') { const ds = drugStr(); Object.keys(F).forEach(key => { F[key] = ds[key] || false; }); }
   }
   ORG.tgt = T; ORG.F = F;
   if (!ORG.cur) { ORG.cur = Object.assign({}, T); stepOrgans(0); }   // 첫 화면은 애니메이션 전에 바로 그림

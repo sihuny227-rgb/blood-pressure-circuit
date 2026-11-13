@@ -10,7 +10,7 @@
 | --- | --- |
 | 1. 정상 조절 | 혈압이 떨어질 때(출혈·탈수)와 오를 때, 압수용체 반사(초) → RAAS(분~시간) → 신장의 나트륨·수분 조절(시간~일)이 차례로 작동하는 과정을 단계별로 재생 |
 | 2. 고혈압의 문제 부위 | 염분 민감형·비만형·스트레스형·노인 수축기 단독형·원발성 알도스테론증 등 환자 유형과 7가지 기전, 혈압을 올리는 약(NSAIDs, 코막힘약)을 켜면 고장 부위가 빨갛게 표시됨. 압력-나트륨이뇨 곡선과 표적장기 손상 위험 |
-| 3. 약물의 표적 | ARB, ACE 억제제, CCB, 티아지드, 베타차단제, MRA의 표적 위치(초록 핀)와 약해진 경로, 치료 전후 혈압, 예상 상대위험 감소, 병용 시 주의점. **부작용은 왜 생길까**: 약별 부작용 22가지를 "약의 작용 → … → 부작용" 단계로 풀어 설명하고, 생기는 위치를 회로도에 주황 점선으로 표시 |
+| 3. 약물의 표적 | ARB, ACE 억제제, CCB, 티아지드, 베타차단제, MRA의 표적 위치(초록 핀)와 약해진 경로, 치료 전후 혈압, 예상 상대위험 감소, 병용 시 주의점. **용량과 강도**: 약마다 ½ 용량·표준·2배를 고르면 처방 강도(표준 환자 154 mmHg 기준 저강도 <10, 중강도 10~19, 고강도 ≥20 mmHg, Wang 등 Lancet 2025)가 계산되고, 부작용마다 용량 의존 여부가 표시됨. **부작용은 왜 생길까**: 약별 부작용 22가지를 "약의 작용 → … → 부작용" 단계로 풀어 설명하고, 생기는 위치를 회로도에 주황 점선으로 표시 |
 
 회로도 아래의 **장기 들여다보기**에서는 지금 상태의 값으로 장기가 움직입니다.
 
@@ -29,8 +29,10 @@
 1. 대한고혈압학회. 2022 focused update of the 2018 KSH Guidelines (혈압 분류)
 2. 2025 AHA/ACC Guideline for the Prevention, Detection, Evaluation and Management of High Blood Pressure in Adults (1차 약제, 생활습관)
 3. Ettehad D, et al. Blood pressure lowering for prevention of cardiovascular disease and death. Lancet 2016 (수축기 10mmHg당 상대위험)
-4. Primary role of the kidney in pathogenesis of hypertension (압력-나트륨이뇨)
-5. 2024 ESC Guidelines for the Management of Elevated Blood Pressure and Hypertension
+4. Wang N, et al. Blood pressure-lowering efficacy of antihypertensive drugs and their combinations. Lancet 2025 (계열별 표준 용량 효과, 강도 분류, 용량 규칙)
+5. Law MR, et al. Value of low dose combination treatment with blood pressure lowering drugs. BMJ 2003 (½ 용량 효과, 병용의 가산성)
+6. Primary role of the kidney in pathogenesis of hypertension (압력-나트륨이뇨)
+7. 2024 ESC Guidelines for the Management of Elevated Blood Pressure and Hypertension
 
 ## 주의
 
