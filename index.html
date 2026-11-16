@@ -420,6 +420,7 @@ h1 { margin: 0; font-size: clamp(28px, 4vw, 40px); line-height: 1.15; font-weigh
 .ov-fine { color: var(--faint); font-size: 11.5px; }
 .o-t { font-size: 11px; fill: var(--muted); }
 .o-t.sm { font-size: 9.5px; }
+.o-t.xs { font-size: 8.5px; fill: var(--muted); }
 .o-t.b { font-weight: 600; fill: var(--ink); font-family: var(--font-mono); font-size: 11.5px; }
 .o-t.inv { fill: var(--on-blood); font-weight: 700; }
 .o-t.hot { fill: var(--problem); font-weight: 700; }
@@ -583,7 +584,7 @@ footer ol { margin: 0; padding-left: 18px; display: grid; gap: 2px; }
                 <div class="kg-bar" aria-hidden="true"><span class="kg-z lo">저칼륨</span><span class="kg-z ok">정상 3.5~5.0</span><span class="kg-z hi">고칼륨</span><i class="kg-mark" id="kMark" style="left:42.5%"></i></div>
                 <div class="kg-scale" aria-hidden="true"><span style="left:0">2.5</span><span style="left:25%">3.5</span><span style="left:62.5%">5.0</span><span style="left:100%">6.5</span></div>
                 <p class="kg-note" id="kNote"></p>
-                <p class="kg-base">K⁺은 근위세뇨관과 헨레고리에서 대부분 다시 흡수됩니다. 소변으로 나가는 K⁺은 주로 집합관 주세포가 분비하며, ENaC로 Na⁺이 많이 들어올수록, 알도스테론이 많을수록 ROMK로 더 많이 나갑니다.</p>
+                <p class="kg-base">K⁺은 근위세뇨관과 헨레고리에서 대부분 다시 흡수됩니다. 소변으로 나가는 K⁺은 주로 집합관 주세포가 분비하며, ENaC(상피세포 Na⁺ 통로)로 Na⁺이 많이 들어올수록, 알도스테론이 많을수록 ROMK(신장 외수질 K⁺ 통로)로 더 많이 나갑니다.</p>
               </div>
               <span class="ov-fine">실제로는 여과된 나트륨의 99% 이상이 다시 흡수됩니다. 움직임이 보이도록 소변으로 나가는 비율을 과장해 그렸습니다. 혈중 K⁺은 교육용 추정치입니다.</span></figcaption>
           </figure>
@@ -810,6 +811,10 @@ const EDGES = [
   { id: 'E18', type: 'hormone', d: 'M855 28 V12 H10 V550 H28', label: 'ADH → 물 재흡수', lx: 10, ly: 160, rot: true },
 ];
 
+const CHIP_FULL = {
+  'c-ncc': 'NCC = Na⁺-Cl⁻ 공동수송체 (Na⁺-Cl⁻ cotransporter)',
+  'c-mr': 'MR = 알도스테론(무기질코르티코이드) 수용체 · ENaC = 상피세포 Na⁺ 통로 (epithelial Na⁺ channel)',
+};
 const DRUG_TARGETS = { arb: ['at1', 'c-at1v'], acei: ['ace'], ccb: ['c-ca'], thz: ['c-ncc'], bb: ['c-b1h', 'c-jg'], mra: ['c-mr'] };
 const DRUG_TAGTXT = { arb: 'ARB', acei: 'ACE억제', ccb: 'CCB', thz: '티아지드', bb: 'β차단', mra: 'MRA' };
 const PROB_TARGETS = { salt: ['c-pn'], kidney: ['c-pn'], symp: ['c-symp', 'cns'], raas: ['c-jg', 'angII'], endo: ['c-no'], stiff: ['c-aorta'], aldo: ['c-aldo', 'adrenal'], nsaid: ['c-pn'], decong: ['c-a1'] };
@@ -894,7 +899,7 @@ const DRUGS = [
     react: '합병증 없는 고혈압의 1차 약은 보통 아닙니다. 관상동맥질환, 박출률 감소 심부전, 빈맥성 부정맥 등 적응증이 있을 때 특히 유용합니다.',
     caution: ['서맥·피로', '비선택성은 천식 주의', '갑자기 끊지 않기'] },
   { k: 'mra', abbr: 'MRA', name: '알도스테론 수용체 차단제', ex: '스피로노락톤 · 에플레레논', target: '집합관 알도스테론 수용체(MR)', badge: '저항성 · 4번째', first: false,
-    mech: '집합관에서 알도스테론이 MR에 붙는 것을 막아 ENaC를 통한 나트륨 재흡수를 줄이고 칼륨은 보존합니다.',
+    mech: '집합관에서 알도스테론이 MR에 붙는 것을 막아 ENaC(상피세포 Na⁺ 통로)를 통한 나트륨 재흡수를 줄이고 칼륨은 보존합니다.',
     react: '저항성 고혈압에서 네 번째 약으로 효과가 크고, 원발성 알도스테론증 치료의 핵심입니다.',
     caution: ['고칼륨혈증', 'ACE 억제제·ARB·CKD와 함께면 더 주의', '여성형 유방(스피로노락톤)'] },
 ];
@@ -1058,7 +1063,7 @@ const INFO = {
   heart: { t: '심장', tag: '펌프', n: '심박출량(CO) = 심박수 × 1회박출량. β₁ 자극이 심박수와 수축력을 높이고, 혈액량이 늘면 심장이 더 늘어나 1회박출량이 커집니다.', h: '높은 동맥압을 이기며 피를 내보내야 해 좌심실이 두꺼워집니다(좌심실 비대). 두꺼워진 심근은 잘 이완되지 못해 박출률 보존 심부전, 심방세동, 관상동맥질환으로 이어질 수 있습니다.', d: '베타차단제가 β₁ 수용체를 막아 심박수와 수축력을 줄입니다. 이뇨제는 혈액량을 줄여 초기 심박출량을 낮춥니다.' },
   map: { t: '동맥압 · 대동맥', tag: 'MAP ≈ CO × SVR', n: '평균동맥압은 심박출량과 전신혈관저항의 곱으로 정해집니다. 대동맥과 큰 동맥은 수축기에 늘어났다가 이완기에 되돌아오며 피를 계속 밀어 줍니다. 그래서 심장이 쉬는 동안에도 혈압이 0으로 떨어지지 않습니다.', h: '나이가 들면 엘라스틴이 손상되고 콜라겐과 석회화가 늘어 동맥이 딱딱해집니다. 수축기 혈압은 오르고 이완기 혈압은 낮아져 맥압이 커지는 수축기 단독 고혈압(예: 160/75)이 흔해집니다.', d: '모든 혈압약의 최종 목표입니다. 경직 자체를 되돌리는 약은 없으며, 노인 수축기 고혈압에는 CCB와 이뇨제가 흔히 쓰입니다.' },
   vessel: { t: '세동맥', tag: '수도관 · 저항', n: '저항은 반지름의 네제곱에 반비례해 조금만 좁아져도 크게 늘어납니다. 수축 신호는 α₁(교감신경), AT₁(안지오텐신 II), 세포 안 Ca²⁺이고, 이완 신호는 내피세포가 만드는 NO입니다.', h: '높은 압력이 내피를 손상시켜 NO가 줄고, 평활근이 두꺼워지며 혈관벽이 재형성됩니다. 저항과 경직이 더 커져 혈압이 다시 오르는 악순환이 생깁니다.', d: 'CCB가 L형 Ca²⁺ 통로를 막아 직접 이완시킵니다. ARB·ACE 억제제는 AT₁ 경로를 끊고, 이뇨제는 장기적으로 저항을 낮춥니다.' },
-  kidney: { t: '신장', tag: '관리소 · 장기 조절', n: '나트륨과 물의 배설량으로 혈액량과 장기 혈압을 정합니다. 사구체옆세포는 레닌을 분비하고, 원위곡세뇨관의 NCC(Na⁺/Cl⁻ 공동수송체)와 집합관의 MR → ENaC 경로가 나트륨 재흡수를 조절합니다. 혈압이 오르면 배설이 늘어나는 압력-나트륨이뇨가 혈압을 되돌립니다. K⁺은 앞 구간에서 대부분 흡수되고, 소변으로 나가는 K⁺은 주로 집합관 주세포가 ENaC로 Na⁺을 받아들이면서 ROMK로 분비합니다.', h: '배설 능력이 떨어지면 같은 양의 나트륨을 내보내는 데 더 높은 압력이 필요합니다. 오랜 고혈압은 사구체와 소동맥을 손상시켜 배설 능력을 더 떨어뜨리는 악순환을 만듭니다. NSAIDs는 프로스타글란딘을 억제해 나트륨을 붙잡게 합니다.', d: '티아지드는 NCC를, MRA는 집합관의 알도스테론 수용체를 막습니다. 베타차단제는 레닌 분비를 줄입니다. ARB·ACE 억제제는 사구체 압력을 낮추지만 초기 크레아티닌과 칼륨 변화를 확인해야 합니다.' },
+  kidney: { t: '신장', tag: '관리소 · 장기 조절', n: '나트륨과 물의 배설량으로 혈액량과 장기 혈압을 정합니다. 사구체옆세포는 레닌을 분비하고, 원위곡세뇨관의 NCC(Na⁺-Cl⁻ 공동수송체)와 집합관의 MR(알도스테론 수용체) → ENaC(상피세포 Na⁺ 통로) 경로가 나트륨 재흡수를 조절합니다. 혈압이 오르면 배설이 늘어나는 압력-나트륨이뇨가 혈압을 되돌립니다. K⁺은 앞 구간에서 대부분 흡수되고, 소변으로 나가는 K⁺은 주로 집합관 주세포가 ENaC로 Na⁺을 받아들이면서 ROMK로 분비합니다.', h: '배설 능력이 떨어지면 같은 양의 나트륨을 내보내는 데 더 높은 압력이 필요합니다. 오랜 고혈압은 사구체와 소동맥을 손상시켜 배설 능력을 더 떨어뜨리는 악순환을 만듭니다. NSAIDs는 프로스타글란딘을 억제해 나트륨을 붙잡게 합니다.', d: '티아지드는 NCC를, MRA는 집합관의 알도스테론 수용체를 막습니다. 베타차단제는 레닌 분비를 줄입니다. ARB·ACE 억제제는 사구체 압력을 낮추지만 초기 크레아티닌과 칼륨 변화를 확인해야 합니다.' },
   adrenal: { t: '부신피질', tag: '알도스테론 분비', n: '안지오텐신 II와 혈중 칼륨 상승에 반응해 알도스테론을 분비합니다. 알도스테론은 집합관에서 Na⁺ 재흡수와 K⁺ 배설을 늘립니다.', h: '원발성 알도스테론증에서는 레닌과 상관없이 알도스테론이 과다 분비되어 나트륨 저류와 저칼륨혈증이 생깁니다. 저항성 고혈압에서 꼭 확인할 원인입니다.', d: 'MRA(스피로노락톤, 에플레레논)가 신장의 알도스테론 수용체에서 작용을 막습니다. ARB·ACE 억제제는 분비 자극을 줄입니다.' },
   agt: { t: '안지오텐시노겐', tag: '간에서 생성', n: '간에서 만들어져 혈중에 늘 있는 레닌의 재료입니다. 레닌이 이를 잘라 안지오텐신 I을 만들며, 이 단계의 속도는 레닌 양이 정합니다.', h: '비만하면 지방조직에서도 안지오텐시노겐이 만들어져 RAAS 활성화에 기여합니다.', d: '레닌을 직접 억제하는 약(알리스키렌)이 이 단계를 막지만 흔히 쓰이지는 않습니다.' },
   angI: { t: '안지오텐신 I', tag: '중간 물질', n: '거의 작용이 없는 중간 물질입니다. ACE를 만나 안지오텐신 II가 됩니다.', h: '레닌이 많으면 함께 늘어납니다.', d: '직접 표적으로 하는 약은 없습니다.' },
@@ -1135,6 +1140,7 @@ for (const [id, n] of Object.entries(NODES)) {
   if (n.chips) {
     n.chips.forEach(([cid, label], i) => {
       const cg = S('g', { class: 'chip', 'data-chip': cid }, g);
+      if (CHIP_FULL[cid]) S('title', { text: CHIP_FULL[cid] }, cg);   // 마우스를 올리면 약어 풀네임
       const r = S('rect', { rx: 11, height: 22 }, cg);
       const tx = S('text', { text: label }, cg);
       chipEl[cid] = { g: cg, r, tx, node: id, idx: i, label };
@@ -2067,6 +2073,10 @@ const ON = (() => {
   L(520, 160, '원위곡세뇨관', 'o-t', 'middle'); L(520, 174, 'Na⁺ 약 5% · NCC', 'o-t sm', 'middle');
   L(640, 232, '집합관', 'o-t', 'end'); L(640, 246, 'Na⁺ 2~5% 흡수 · ENaC', 'o-t sm', 'end');
   const kSecT = L(640, 262, '', 'o-t b kt', 'end');
+  // 약어 풀네임 (작은 글씨)
+  L(520, 189, 'NCC = Na⁺-Cl⁻ 공동수송체', 'o-t xs', 'middle'); L(520, 200, 'Na⁺-Cl⁻ cotransporter', 'o-t xs', 'middle');
+  L(640, 277, 'ENaC = 상피세포 Na⁺ 통로', 'o-t xs', 'end'); L(640, 288, 'epithelial Na⁺ channel', 'o-t xs', 'end');
+  L(716, 261, 'ROMK = 신장 외수질 K⁺ 통로', 'o-t xs', 'middle');
   L(676, 292, '소변'); const urT = L(676, 276, '', 'o-t b');
   L(888, 148, '← 알도스테론 (부신피질)', 'o-t ald', 'end');
   // 범례
