@@ -2077,11 +2077,12 @@ const ON = (() => {
   L(520, 189, 'NCC = Na⁺-Cl⁻ 공동수송체', 'o-t xs', 'middle'); L(520, 200, 'Na⁺-Cl⁻ cotransporter', 'o-t xs', 'middle');
   L(640, 277, 'ENaC = 상피세포 Na⁺ 통로', 'o-t xs', 'end'); L(640, 288, 'epithelial Na⁺ channel', 'o-t xs', 'end');
   L(750, 261, 'ROMK = 신장 외수질 K⁺ 통로', 'o-t xs', 'middle'); L(750, 272, 'renal outer medullary K⁺ channel', 'o-t xs', 'middle');
+  L(888, 124, 'MR = 무기질코르티코이드 수용체', 'o-t xs', 'end'); L(888, 135, 'mineralocorticoid receptor', 'o-t xs', 'end');
   L(676, 303, '소변'); const urT = L(676, 290, '', 'o-t b');
-  L(888, 148, '← 알도스테론 (부신피질)', 'o-t ald', 'end');
+  L(888, 152, '← 알도스테론 (부신피질)', 'o-t ald', 'end');
   // 범례
   [['circle', 'o-na', 'Na⁺ (나트륨)'], ['rect', 'o-k', 'K⁺ (칼륨)'], ['circle', 'o-na reab', '다시 흡수되어 혈액으로'], ['circle', 'o-ren', '레닌'], ['circle', 'o-ald', '알도스테론']].forEach(([shape, cls, t], i) => {
-    const y = 46 + i * 16;
+    const y = 44 + i * 15;
     if (shape === 'rect') S('rect', { class: cls, x: 742.5, y: y - 3.5, width: 7, height: 7, rx: 1.2 }, s);
     else S('circle', { class: cls, cx: 746, cy: y, r: cls === 'o-ren' ? 3 : 4 }, s);
     L(756, y + 4, t);
