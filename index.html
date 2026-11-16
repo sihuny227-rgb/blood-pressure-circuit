@@ -577,7 +577,7 @@ footer ol { margin: 0; padding-left: 18px; display: grid; gap: 2px; }
             <figcaption><b>세동맥 · 저항 혈관</b><span class="ov-live" id="ovArtLive"></span><span class="ov-note" id="ovArtNote"></span></figcaption>
           </figure>
           <figure class="ov wide" data-node="kidney" tabindex="0" role="button" aria-label="신장 설명 보기">
-            <div class="ov-scroll"><svg id="ovKidney" viewBox="0 0 900 300" aria-hidden="true"></svg></div>
+            <div class="ov-scroll"><svg id="ovKidney" viewBox="0 0 900 312" aria-hidden="true"></svg></div>
             <figcaption><b>신장 · 네프론에서 Na⁺과 K⁺이 가는 길</b><span class="ov-live" id="ovKidLive"></span><span class="ov-note" id="ovKidNote"></span>
               <div class="kg" aria-label="혈중 칼륨 추정">
                 <div class="kg-head"><b>혈중 K⁺ 추정</b><span class="kg-val ok" id="kVal">4.2 mmol/L · 정상 범위</span></div>
@@ -2048,7 +2048,7 @@ const ON = (() => {
   const caps = [[-14, -12], [8, -16], [20, 2], [4, 15], [-16, 10], [-1, -1]].map(([dx, dy]) => S('circle', { class: 'o-cap', cx: 165 + dx, cy: 96 + dy, r: 11 }, tuft));
   NEPH_D.forEach(d => S('path', { class: 'o-tub-o', d }, s));
   const segI = NEPH_D.map(d => S('path', { class: 'o-tub-i', d }, s));
-  S('path', { class: 'o-urine', d: 'M662 274V296M656 289L662 297L668 289' }, s);
+  S('path', { class: 'o-urine', d: 'M662 274V303M656 296L662 304L668 296' }, s);
   S('circle', { class: 'o-ncc', cx: 492, cy: 134, r: 6 }, s);
   const nccX = S('path', { class: 'o-x', d: 'M486 128L498 140M498 128L486 140', opacity: 0 }, s);
   // 집합관 주세포: 소변 쪽(왼쪽) ENaC·ROMK, 혈액 쪽(오른쪽) Na⁺/K⁺ 펌프, 안쪽 MR
@@ -2076,8 +2076,8 @@ const ON = (() => {
   // 약어 풀네임 (작은 글씨)
   L(520, 189, 'NCC = Na⁺-Cl⁻ 공동수송체', 'o-t xs', 'middle'); L(520, 200, 'Na⁺-Cl⁻ cotransporter', 'o-t xs', 'middle');
   L(640, 277, 'ENaC = 상피세포 Na⁺ 통로', 'o-t xs', 'end'); L(640, 288, 'epithelial Na⁺ channel', 'o-t xs', 'end');
-  L(716, 261, 'ROMK = 신장 외수질 K⁺ 통로', 'o-t xs', 'middle');
-  L(676, 292, '소변'); const urT = L(676, 276, '', 'o-t b');
+  L(750, 261, 'ROMK = 신장 외수질 K⁺ 통로', 'o-t xs', 'middle'); L(750, 272, 'renal outer medullary K⁺ channel', 'o-t xs', 'middle');
+  L(676, 303, '소변'); const urT = L(676, 290, '', 'o-t b');
   L(888, 148, '← 알도스테론 (부신피질)', 'o-t ald', 'end');
   // 범례
   [['circle', 'o-na', 'Na⁺ (나트륨)'], ['rect', 'o-k', 'K⁺ (칼륨)'], ['circle', 'o-na reab', '다시 흡수되어 혈액으로'], ['circle', 'o-ren', '레닌'], ['circle', 'o-ald', '알도스테론']].forEach(([shape, cls, t], i) => {
@@ -2171,7 +2171,7 @@ function stepParticles(arr, dt, pos, reabCls) {
         else { p.pts = [[x, y], [x + 10, 26]]; p.dur = 0.9; }
         if (reabCls) setCls(p.el, reabCls);
       } else if (p.s >= ON.total) {
-        p.mode = 'urine'; p.t = 0; p.pts = [[662, 266], [662, 298]]; p.dur = 0.6;
+        p.mode = 'urine'; p.t = 0; p.pts = [[662, 266], [662, 304]]; p.dur = 0.6;
       } else {
         const [x, y] = ptAt(p.s); pos(p, x, y); setOp(p.el, 1);
         return;
