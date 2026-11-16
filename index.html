@@ -2064,7 +2064,6 @@ const ON = (() => {
   S('circle', { class: 'o-mr', cx: 726, cy: 166, r: 8 }, s);
   const mrGlow = S('circle', { class: 'o-ald', cx: 726, cy: 166, r: 5.5 }, s);
   const mrX = S('path', { class: 'o-x', d: 'M719 159L733 173M733 159L719 173', opacity: 0 }, s);
-  L(738, 170, 'MR', 'o-t sm');
   L(8, 122, '수입세동맥'); const mapT = L(8, 136, '', 'o-t b');
   L(8, 160, '사구체옆세포'); const renT = L(8, 174, '', 'o-t b ren');
   L(165, 158, '사구체 · 여과', 'o-t', 'middle'); const sclT = L(165, 172, '', 'o-t hot', 'middle');
@@ -2077,12 +2076,15 @@ const ON = (() => {
   L(520, 189, 'NCC = Na⁺-Cl⁻ 공동수송체', 'o-t xs', 'middle'); L(520, 200, 'Na⁺-Cl⁻ cotransporter', 'o-t xs', 'middle');
   L(640, 277, 'ENaC = 상피세포 Na⁺ 통로', 'o-t xs', 'end'); L(640, 288, 'epithelial Na⁺ channel', 'o-t xs', 'end');
   L(750, 261, 'ROMK = 신장 외수질 K⁺ 통로', 'o-t xs', 'middle'); L(750, 272, 'renal outer medullary K⁺ channel', 'o-t xs', 'middle');
-  L(888, 124, 'MR = 무기질코르티코이드 수용체', 'o-t xs', 'end'); L(888, 135, 'mineralocorticoid receptor', 'o-t xs', 'end');
+  // MR 풀네임: MR 동그라미와 같은 높이, 주세포 바로 오른쪽
+  const mrT = L(764, 168, '', 'o-t xs');
+  S('tspan', { text: 'MR', style: 'font-weight:700;fill:var(--aldo)' }, mrT); S('tspan', { text: ' = 무기질코르티코이드 수용체' }, mrT);
+  L(764, 179, 'mineralocorticoid receptor', 'o-t xs');
   L(676, 303, '소변'); const urT = L(676, 290, '', 'o-t b');
-  L(888, 152, '← 알도스테론 (부신피질)', 'o-t ald', 'end');
+  L(888, 124, '← 알도스테론 (부신피질)', 'o-t ald', 'end');
   // 범례
   [['circle', 'o-na', 'Na⁺ (나트륨)'], ['rect', 'o-k', 'K⁺ (칼륨)'], ['circle', 'o-na reab', '다시 흡수되어 혈액으로'], ['circle', 'o-ren', '레닌'], ['circle', 'o-ald', '알도스테론']].forEach(([shape, cls, t], i) => {
-    const y = 44 + i * 15;
+    const y = 41 + i * 15;
     if (shape === 'rect') S('rect', { class: cls, x: 742.5, y: y - 3.5, width: 7, height: 7, rx: 1.2 }, s);
     else S('circle', { class: cls, cx: 746, cy: y, r: cls === 'o-ren' ? 3 : 4 }, s);
     L(756, y + 4, t);
@@ -2258,7 +2260,7 @@ function drawNephron(k, dt) {
   mover(ON.REN, dt);
   // 알도스테론: 부신피질 → 집합관 MR
   ON.accAld += dt * 2 * k.aldoLv;
-  while (ON.accAld >= 1) { ON.accAld--; const p = ON.ALD.find(q => !q.on); if (!p) break; Object.assign(p, { on: true, t: 0, dur: 1.7, x0: 886, y0: 158 + rnd() * 14, x1: ORG.F.mra ? 748 : 734, y1: 166 + (rnd() - 0.5) * 6 }); }
+  while (ON.accAld >= 1) { ON.accAld--; const p = ON.ALD.find(q => !q.on); if (!p) break; Object.assign(p, { on: true, t: 0, dur: 1.7, x0: 896, y0: 131 + rnd() * 5, x1: ORG.F.mra ? 742 : 728, y1: 157 + (rnd() - 0.5) * 3 }); }   // 위쪽에서 비스듬히 MR로 (풀네임 글자를 가리지 않게)
   mover(ON.ALD, dt);
 }
 
